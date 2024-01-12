@@ -1,0 +1,29 @@
+/* LoginPage.css */
+
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+.column {
+	padding: 0;
+}
+
+.column.is-4 {
+	padding: 20px;
+}
+
+.title {
+	text-align: center;
+}
+
+.field {
+	margin-bottom: 1em;
+}
+
+.button {
+	margin-top: 20px;
+	width: 60%;
+	background-color: gold;
+}
