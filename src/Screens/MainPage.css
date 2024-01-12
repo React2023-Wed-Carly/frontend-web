@@ -1,6 +1,5 @@
 /* MainPage.css */
-
-body {
+.main {
 	padding: 20px;
 }
 
@@ -14,6 +13,8 @@ body {
 .menu-label {
 	font-weight: bold;
 	color: #333;
+	text-align: center;
+	padding-top: 10px;
 }
 
 .menu-list a {
@@ -33,4 +34,11 @@ body {
 .menu-list a.active {
 	background-color: #3273dc;
 	color: #fff;
+}
+
+.logout-container {
+	width: 200px;
+	position: absolute;
+	bottom: 3%;
+	left: 1%;
 }
