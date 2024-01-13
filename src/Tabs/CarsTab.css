@@ -1,0 +1,42 @@
+/* CarsTab.css */
+
+/* Style for the search bar and button */
+.field.has-addons {
+	margin-bottom: 1em;
+}
+
+.button.is-info {
+	border-radius: 20px;
+	margin: 0;
+	width: 100px;
+}
+
+/* Style for the paged list of cars */
+.list-element {
+	margin: 0;
+	padding: 10px;
+	box-shadow: none;
+	border-bottom: 1px solid rgb(223, 223, 223);
+}
+.list-element:last-child {
+	border: none;
+}
+
+/* Style for pagination */
+.pagination {
+	margin-top: 1em;
+}
+
+.pagination-previous.button,
+.pagination-next.button {
+	border-radius: 0;
+	width: 200px;
+}
+
+.pagination-link.button {
+	width: 50px;
+}
+
+.pagination {
+	padding-top: 10px;
+}
