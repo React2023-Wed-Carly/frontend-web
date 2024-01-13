@@ -1,3 +1,4 @@
+// MainPage.jsx
 import React, { useState } from 'react';
 import {
 	BrowserRouter as Router,
@@ -12,8 +13,10 @@ import UsersTab from '../Tabs/UsersTab';
 import BookingsTab from '../Tabs/BookingsTab';
 import PaymentsTab from '../Tabs/PaymentsTab';
 import LoginPage from './LoginPage';
+import CarDetailsPage from '../DetailPages/CarDetailsPage'; // Import the CarDetailsPage
 import 'bulma/css/bulma.min.css';
 import './MainPage.css';
+import data from '../DummyData.json';
 
 const MainPage = () => {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -33,7 +36,7 @@ const MainPage = () => {
 				{isLoggedIn ? (
 					<div className="columns">
 						{/* Sidebar with tabs */}
-						<div className="column is-2">
+						<div className="column is-2 sidebar">
 							<aside className="menu">
 								<p className="menu-label">Navigation</p>
 								<ul className="menu-list">
@@ -78,6 +81,16 @@ const MainPage = () => {
 									<Route path="/home/users" element={<UsersTab />} />
 									<Route path="/home/bookings" element={<BookingsTab />} />
 									<Route path="/home/payments" element={<PaymentsTab />} />
+									<Route
+										path="/home/cars/:carId"
+										element={
+											<CarDetailsPage
+												cars={data.cars}
+												onDeleteCar={() => {}}
+												onUpdateCar={() => {}}
+											/>
+										}
+									/>
 									{/* Add a default route for /main that redirects to /home/cars */}
 									<Route path="/main" element={<Navigate to="/home/cars" />} />
 								</Routes>
