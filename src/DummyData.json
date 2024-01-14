@@ -1,234 +1,907 @@
 {
-	"cars": [
-		{
-			"id": 1,
-			"owner": "John Doe",
-			"photo": "car.png",
-			"brand": "Toyota",
-			"model": "Camry",
-			"year": 2022,
-			"description": "A comfortable sedan",
-			"dailyPrice": 50,
-			"reservations": [1],
-			"location": {
-				"latitude": 52.2053,
-				"longitude": 20.9265
-			},
-			"fuelType": "Gasoline",
-			"transmission": "Automatic",
-			"seatingCapacity": 4,
-			"mileage": 0,
-			"features": ["Bluetooth", "Backup Camera", "Leather Seats"],
-			"licensePlateNumber": "ABC123"
-		},
-		{
-			"id": 2,
-			"owner": "Jane Smith",
-			"photo": "car.png",
-			"brand": "Honda",
-			"model": "Civic",
-			"year": 2020,
-			"description": "Fuel-efficient compact car",
-			"dailyPrice": 40,
-			"reservations": [],
-			"location": {
-				"latitude": 52.2052,
-				"longitude": 21.0574
-			},
-			"fuelType": "Gasoline",
-			"transmission": "Automatic",
-			"seatingCapacity": 3,
-			"mileage": 0,
-			"features": ["USB Ports", "Eco Mode", "Lane Departure Warning"],
-			"licensePlateNumber": "ABC123"
-		},
-		{
-			"id": 3,
-			"owner": "Bob Johnson",
-			"photo": "car.png",
-			"brand": "Ford",
-			"model": "Mustang",
-			"year": 2021,
-			"description": "Muscle car with style",
-			"dailyPrice": 70,
-			"reservations": [],
-			"location": {
-				"latitude": 52.28,
-				"longitude": 20.8756
-			},
-			"fuelType": "Gasoline",
-			"transmission": "Automatic",
-			"seatingCapacity": 4,
-			"mileage": 15000,
-			"features": ["Air Conditioning", "GPS", "Sunroof"],
-			"licensePlateNumber": "ABC123"
-		},
-		{
-			"id": 4,
-			"owner": "Emily Davis",
-			"photo": "car.png",
-			"brand": "Chevrolet",
-			"model": "Equinox",
-			"year": 2019,
-			"description": "SUV for family trips",
-			"dailyPrice": 60,
-			"reservations": [],
-			"location": {
-				"latitude": 52.2862,
-				"longitude": 20.9665
-			},
-			"fuelType": "Gasoline",
-			"transmission": "Automatic",
-			"seatingCapacity": 5,
-			"mileage": 0,
-			"features": ["Roof Rack", "Third-Row Seating"],
-			"licensePlateNumber": "ABC123"
-		},
-		{
-			"id": 5,
-			"owner": "Chris Wilson",
-			"photo": "car.png",
-			"brand": "Nissan",
-			"model": "Altima",
-			"year": 2023,
-			"description": "Modern and efficient",
-			"dailyPrice": 45,
-			"reservations": [],
-			"location": {
-				"latitude": 52.1242,
-				"longitude": 20.9665
-			},
-			"fuelType": "Gasoline",
-			"transmission": "Automatic",
-			"seatingCapacity": 4,
-			"mileage": 0,
-			"features": ["Keyless Entry", "Blind Spot Monitoring"],
-			"licensePlateNumber": "ABC123"
-		},
-		{
-			"id": 6,
-			"owner": "Eva Martinez",
-			"photo": "car.png",
-			"brand": "BMW",
-			"model": "X5",
-			"year": 2020,
-			"description": "Luxurious SUV",
-			"dailyPrice": 80,
-			"reservations": [],
-			"location": {
-				"latitude": 34.0522,
-				"longitude": 20.9065
-			},
-			"fuelType": "Gasoline",
-			"transmission": "Automatic",
-			"seatingCapacity": 5,
-			"mileage": 0,
-			"features": ["Heated Seats", "Panoramic Sunroof"],
-			"licensePlateNumber": "ABC123"
-		},
-		{
-			"id": 7,
-			"owner": "David White",
-			"photo": "car.png",
-			"brand": "Mercedes-Benz",
-			"model": "C-Class",
-			"year": 2021,
-			"description": "Elegant and powerful",
-			"dailyPrice": 75,
-			"reservations": [],
-			"location": {
-				"latitude": 40.7128,
-				"longitude": -74.006
-			},
-			"fuelType": "Gasoline",
-			"transmission": "Automatic",
-			"seatingCapacity": 4,
-			"mileage": 44000,
-			"features": ["Big trunk", "Premium Sound System"],
-			"licensePlateNumber": "ABC123"
-		},
-		{
-			"id": 8,
-			"owner": "Fiona Brown",
-			"photo": "car.png",
-			"brand": "Audi",
-			"model": "A3",
-			"year": 2018,
-			"description": "Compact luxury",
-			"dailyPrice": 65,
-			"reservations": [],
-			"location": {
-				"latitude": 41.8781,
-				"longitude": -87.6298
-			},
-			"fuelType": "Gasoline",
-			"transmission": "Automatic",
-			"seatingCapacity": 3,
-			"mileage": 0,
-			"features": ["GPS", "Leather Interior"],
-			"licensePlateNumber": "ABC123"
-		},
-		{
-			"id": 9,
-			"owner": "George Taylor",
-			"photo": "car.png",
-			"brand": "Hyundai",
-			"model": "Santa Fe",
-			"year": 2022,
-			"description": "Versatile and spacious",
-			"dailyPrice": 55,
-			"reservations": [],
-			"location": {
-				"latitude": 32.7767,
-				"longitude": -96.797
-			},
-			"fuelType": "Gasoline",
-			"transmission": "Automatic",
-			"seatingCapacity": 4,
-			"mileage": 20000,
-			"features": ["Bluetooth", "Backup Camera"],
-			"licensePlateNumber": "ABC123"
-		},
-		{
-			"id": 10,
-			"owner": "Helen Clark",
-			"photo": "car10.jpg",
-			"brand": "Kia",
-			"model": "Sportage",
-			"year": 2019,
-			"description": "Compact SUV",
-			"dailyPrice": 60,
-			"reservations": [],
-			"location": {
-				"latitude": 34.0522,
-				"longitude": -118.2437
-			},
-			"fuelType": "Gasoline",
-			"transmission": "Automatic",
-			"seatingCapacity": 4,
-			"mileage": 100000,
-			"features": ["Roof Rails", "Android Auto"],
-			"licensePlateNumber": "ABC123"
-		}
-	],
-	"reservations": [
-		{
-			"id": 1,
-			"carId": 1,
-			"user": "user123",
-			"startDate": "2023-01-01",
-			"endDate": "2023-01-05",
-			"completed": false,
-			"location": {
-				"latitude": 40.6413,
-				"longitude": -73.7781
-			}
-		}
-	],
-	"payments": [
-		{
-			"date": "2023-01-03",
-			"amount": 60
-		}
-	]
+  "cars": [
+    {
+      "id": 1,
+      "owner": "John Doe",
+      "photo": "car.png",
+      "brand": "Toyota",
+      "model": "Camry",
+      "year": 2022,
+      "description": "A comfortable sedan",
+      "dailyPrice": 50,
+      "reservations": [1],
+      "location": {
+        "latitude": 52.2053,
+        "longitude": 20.9265
+      },
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "seatingCapacity": 4,
+      "mileage": 0,
+      "features": ["Bluetooth", "Backup Camera", "Leather Seats"],
+      "licensePlateNumber": "ABC123"
+    },
+    {
+      "id": 2,
+      "owner": "Jane Smith",
+      "photo": "car.png",
+      "brand": "Honda",
+      "model": "Civic",
+      "year": 2020,
+      "description": "Fuel-efficient compact car",
+      "dailyPrice": 40,
+      "reservations": [],
+      "location": {
+        "latitude": 52.2052,
+        "longitude": 21.0574
+      },
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "seatingCapacity": 3,
+      "mileage": 0,
+      "features": ["USB Ports", "Eco Mode", "Lane Departure Warning"],
+      "licensePlateNumber": "ABC123"
+    },
+    {
+      "id": 3,
+      "owner": "Bob Johnson",
+      "photo": "car.png",
+      "brand": "Ford",
+      "model": "Mustang",
+      "year": 2021,
+      "description": "Muscle car with style",
+      "dailyPrice": 70,
+      "reservations": [],
+      "location": {
+        "latitude": 52.28,
+        "longitude": 20.8756
+      },
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "seatingCapacity": 4,
+      "mileage": 15000,
+      "features": ["Air Conditioning", "GPS", "Sunroof"],
+      "licensePlateNumber": "ABC123"
+    },
+    {
+      "id": 4,
+      "owner": "Emily Davis",
+      "photo": "car.png",
+      "brand": "Chevrolet",
+      "model": "Equinox",
+      "year": 2019,
+      "description": "SUV for family trips",
+      "dailyPrice": 60,
+      "reservations": [],
+      "location": {
+        "latitude": 52.2862,
+        "longitude": 20.9665
+      },
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "seatingCapacity": 5,
+      "mileage": 0,
+      "features": ["Roof Rack", "Third-Row Seating"],
+      "licensePlateNumber": "ABC123"
+    },
+    {
+      "id": 5,
+      "owner": "Chris Wilson",
+      "photo": "car.png",
+      "brand": "Nissan",
+      "model": "Altima",
+      "year": 2023,
+      "description": "Modern and efficient",
+      "dailyPrice": 45,
+      "reservations": [],
+      "location": {
+        "latitude": 52.1242,
+        "longitude": 20.9665
+      },
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "seatingCapacity": 4,
+      "mileage": 0,
+      "features": ["Keyless Entry", "Blind Spot Monitoring"],
+      "licensePlateNumber": "ABC123"
+    },
+    {
+      "id": 6,
+      "owner": "Eva Martinez",
+      "photo": "car.png",
+      "brand": "BMW",
+      "model": "X5",
+      "year": 2020,
+      "description": "Luxurious SUV",
+      "dailyPrice": 80,
+      "reservations": [],
+      "location": {
+        "latitude": 34.0522,
+        "longitude": 20.9065
+      },
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "seatingCapacity": 5,
+      "mileage": 0,
+      "features": ["Heated Seats", "Panoramic Sunroof"],
+      "licensePlateNumber": "ABC123"
+    },
+    {
+      "id": 7,
+      "owner": "David White",
+      "photo": "car.png",
+      "brand": "Mercedes-Benz",
+      "model": "C-Class",
+      "year": 2021,
+      "description": "Elegant and powerful",
+      "dailyPrice": 75,
+      "reservations": [],
+      "location": {
+        "latitude": 40.7128,
+        "longitude": -74.006
+      },
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "seatingCapacity": 4,
+      "mileage": 44000,
+      "features": ["Big trunk", "Premium Sound System"],
+      "licensePlateNumber": "ABC123"
+    },
+    {
+      "id": 8,
+      "owner": "Fiona Brown",
+      "photo": "car.png",
+      "brand": "Audi",
+      "model": "A3",
+      "year": 2018,
+      "description": "Compact luxury",
+      "dailyPrice": 65,
+      "reservations": [],
+      "location": {
+        "latitude": 41.8781,
+        "longitude": -87.6298
+      },
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "seatingCapacity": 3,
+      "mileage": 0,
+      "features": ["GPS", "Leather Interior"],
+      "licensePlateNumber": "ABC123"
+    },
+    {
+      "id": 9,
+      "owner": "George Taylor",
+      "photo": "car.png",
+      "brand": "Hyundai",
+      "model": "Santa Fe",
+      "year": 2022,
+      "description": "Versatile and spacious",
+      "dailyPrice": 55,
+      "reservations": [],
+      "location": {
+        "latitude": 32.7767,
+        "longitude": -96.797
+      },
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "seatingCapacity": 4,
+      "mileage": 20000,
+      "features": ["Bluetooth", "Backup Camera"],
+      "licensePlateNumber": "ABC123"
+    },
+    {
+      "id": 10,
+      "owner": "Helen Clark",
+      "photo": "car10.jpg",
+      "brand": "Kia",
+      "model": "Sportage",
+      "year": 2019,
+      "description": "Compact SUV",
+      "dailyPrice": 60,
+      "reservations": [],
+      "location": {
+        "latitude": 34.0522,
+        "longitude": -118.2437
+      },
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "seatingCapacity": 4,
+      "mileage": 100000,
+      "features": ["Roof Rails", "Android Auto"],
+      "licensePlateNumber": "ABC123"
+    }
+  ],
+  "reservations": [
+    {
+      "id": 1,
+      "carId": 1,
+      "user": "user001",
+      "startDate": "2023-01-01",
+      "endDate": "2023-01-05",
+      "completed": false,
+      "location": {
+        "latitude": 40.6413,
+        "longitude": -73.7781
+      },
+      "price": 200
+    },
+    {
+      "id": 2,
+      "carId": 3,
+      "user": "user002",
+      "startDate": "2023-02-10",
+      "endDate": "2023-02-15",
+      "completed": true,
+      "location": {
+        "latitude": 41.8781,
+        "longitude": -87.6298
+      },
+      "price": 350
+    },
+    {
+      "id": 3,
+      "carId": 5,
+      "user": "user003",
+      "startDate": "2023-03-20",
+      "endDate": "2023-03-25",
+      "completed": false,
+      "location": {
+        "latitude": 32.7767,
+        "longitude": -96.797
+      },
+      "price": 225
+    },
+    {
+      "id": 4,
+      "carId": 8,
+      "user": "user004",
+      "startDate": "2023-04-05",
+      "endDate": "2023-04-10",
+      "completed": true,
+      "location": {
+        "latitude": 41.8781,
+        "longitude": -87.6298
+      },
+      "price": 325
+    },
+    {
+      "id": 5,
+      "carId": 2,
+      "user": "user005",
+      "startDate": "2023-05-15",
+      "endDate": "2023-05-20",
+      "completed": false,
+      "location": {
+        "latitude": 34.0522,
+        "longitude": -118.2437
+      },
+      "price": 200
+    }
+  ],
+  "payments": [
+    {
+      "id": 1,
+      "date": "2023-01-03",
+      "amount": 60,
+      "type": "external",
+      "reservationId": 1
+    },
+    {
+      "id": 2,
+      "date": "2023-02-01",
+      "amount": 150,
+      "type": "internal"
+    },
+    {
+      "id": 3,
+      "date": "2023-03-25",
+      "amount": 100,
+      "type": "external",
+      "reservationId": 3
+    },
+    {
+      "id": 4,
+      "date": "2023-04-10",
+      "amount": 120,
+      "type": "external",
+      "reservationId": 4
+    },
+    {
+      "id": 5,
+      "date": "2023-05-01",
+      "amount": 80,
+      "type": "internal"
+    },
+    {
+      "id": 6,
+      "date": "2023-05-18",
+      "amount": 120,
+      "type": "external",
+      "reservationId": 5
+    },
+    {
+      "id": 7,
+      "date": "2023-06-05",
+      "amount": 90,
+      "type": "external",
+      "reservationId": 2
+    },
+    {
+      "id": 8,
+      "date": "2023-06-20",
+      "amount": 110,
+      "type": "external",
+      "reservationId": 3
+    },
+    {
+      "id": 9,
+      "date": "2023-07-01",
+      "amount": 70,
+      "type": "internal"
+    },
+    {
+      "id": 10,
+      "date": "2023-07-01",
+      "amount": 70,
+      "type": "internal"
+    },
+    {
+      "id": 11,
+      "date": "2023-07-01",
+      "amount": 70,
+      "type": "internal"
+    }
+  ],
+  "users": [
+    {
+      "id": "user001",
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "email": "alice@example.com",
+      "phoneNumber": "123456789",
+      "password": "password123",
+      "currentLocation": {
+        "latitude": 40.7128,
+        "longitude": -74.006
+      },
+      "availableFunds": 1000,
+      "distanceTraveled": 150,
+      "reservationHistory": [
+        {
+          "id": 1,
+          "carId": 1,
+          "startDate": "2023-01-01",
+          "endDate": "2023-01-05",
+          "completed": false,
+          "location": {
+            "latitude": 40.6413,
+            "longitude": -73.7781
+          },
+          "price": 200
+        },
+        {
+          "id": 2,
+          "carId": 3,
+          "startDate": "2023-02-10",
+          "endDate": "2023-02-15",
+          "completed": true,
+          "location": {
+            "latitude": 41.8781,
+            "longitude": -87.6298
+          },
+          "price": 350
+        }
+      ],
+      "favoriteCars": [1, 2],
+      "payments": [
+        {
+          "date": "2023-01-03",
+          "amount": 60,
+          "type": "external",
+          "reservationId": 1
+        },
+        {
+          "date": "2023-02-01",
+          "amount": 150,
+          "type": "internal",
+          "reservationId": 2
+        }
+      ]
+    },
+    {
+      "id": "user002",
+      "firstName": "Bob",
+      "lastName": "Smith",
+      "email": "bob@example.com",
+      "phoneNumber": "987654321",
+      "password": "securePass",
+      "currentLocation": {
+        "latitude": 34.0522,
+        "longitude": -118.2437
+      },
+      "availableFunds": 800,
+      "distanceTraveled": 200,
+      "reservationHistory": [
+        {
+          "id": 1,
+          "carId": 4,
+          "startDate": "2023-01-10",
+          "endDate": "2023-01-15",
+          "completed": false,
+          "location": {
+            "latitude": 34.0522,
+            "longitude": -118.2437
+          },
+          "price": 250
+        },
+        {
+          "id": 2,
+          "carId": 6,
+          "startDate": "2023-02-20",
+          "endDate": "2023-02-25",
+          "completed": true,
+          "location": {
+            "latitude": 34.0522,
+            "longitude": -118.2437
+          },
+          "price": 300
+        }
+      ],
+      "favoriteCars": [3, 5],
+      "payments": [
+        {
+          "date": "2023-01-20",
+          "amount": 100,
+          "type": "external",
+          "reservationId": 1
+        },
+        {
+          "date": "2023-02-15",
+          "amount": 120,
+          "type": "internal",
+          "reservationId": 2
+        }
+      ]
+    },
+    {
+      "id": "user003",
+      "firstName": "Charlie",
+      "lastName": "Davis",
+      "email": "charlie@example.com",
+      "phoneNumber": "555111222",
+      "password": "securePass3",
+      "currentLocation": {
+        "latitude": 37.7749,
+        "longitude": -122.4194
+      },
+      "availableFunds": 1200,
+      "distanceTraveled": 180,
+      "reservationHistory": [
+        {
+          "id": 1,
+          "carId": 7,
+          "startDate": "2023-03-10",
+          "endDate": "2023-03-15",
+          "completed": false,
+          "location": {
+            "latitude": 37.7749,
+            "longitude": -122.4194
+          },
+          "price": 180
+        },
+        {
+          "id": 2,
+          "carId": 9,
+          "startDate": "2023-04-05",
+          "endDate": "2023-04-10",
+          "completed": true,
+          "location": {
+            "latitude": 37.7749,
+            "longitude": -122.4194
+          },
+          "price": 220
+        }
+      ],
+      "favoriteCars": [6, 8],
+      "payments": [
+        {
+          "date": "2023-03-20",
+          "amount": 90,
+          "type": "external",
+          "reservationId": 1
+        },
+        {
+          "date": "2023-04-10",
+          "amount": 130,
+          "type": "internal",
+          "reservationId": 2
+        }
+      ]
+    },
+    {
+      "id": "user004",
+      "firstName": "David",
+      "lastName": "Evans",
+      "email": "david@example.com",
+      "phoneNumber": "555222333",
+      "password": "securePass4",
+      "currentLocation": {
+        "latitude": 41.8781,
+        "longitude": -87.6298
+      },
+      "availableFunds": 1500,
+      "distanceTraveled": 220,
+      "reservationHistory": [
+        {
+          "id": 1,
+          "carId": 10,
+          "startDate": "2023-05-10",
+          "endDate": "2023-05-15",
+          "completed": false,
+          "location": {
+            "latitude": 41.8781,
+            "longitude": -87.6298
+          },
+          "price": 200
+        },
+        {
+          "id": 2,
+          "carId": 12,
+          "startDate": "2023-06-20",
+          "endDate": "2023-06-25",
+          "completed": true,
+          "location": {
+            "latitude": 41.8781,
+            "longitude": -87.6298
+          },
+          "price": 300
+        }
+      ],
+      "favoriteCars": [10, 11],
+      "payments": [
+        {
+          "date": "2023-05-25",
+          "amount": 120,
+          "type": "external",
+          "reservationId": 1
+        },
+        {
+          "date": "2023-06-25",
+          "amount": 180,
+          "type": "internal",
+          "reservationId": 2
+        }
+      ]
+    },
+    {
+      "id": "user005",
+      "firstName": "Ella",
+      "lastName": "Anderson",
+      "email": "ella@example.com",
+      "phoneNumber": "555111222",
+      "password": "securePass5",
+      "currentLocation": {
+        "latitude": 37.7749,
+        "longitude": -122.4194
+      },
+      "availableFunds": 1200,
+      "distanceTraveled": 180,
+      "reservationHistory": [
+        {
+          "id": 1,
+          "carId": 13,
+          "startDate": "2023-07-10",
+          "endDate": "2023-07-15",
+          "completed": false,
+          "location": {
+            "latitude": 37.7749,
+            "longitude": -122.4194
+          },
+          "price": 180
+        },
+        {
+          "id": 2,
+          "carId": 15,
+          "startDate": "2023-08-05",
+          "endDate": "2023-08-10",
+          "completed": true,
+          "location": {
+            "latitude": 37.7749,
+            "longitude": -122.4194
+          },
+          "price": 220
+        }
+      ],
+      "favoriteCars": [11, 13],
+      "payments": [
+        {
+          "date": "2023-07-20",
+          "amount": 90,
+          "type": "external",
+          "reservationId": 1
+        },
+        {
+          "date": "2023-08-10",
+          "amount": 130,
+          "type": "internal",
+          "reservationId": 2
+        }
+      ]
+    },
+    {
+      "id": "user006",
+      "firstName": "Finn",
+      "lastName": "Baker",
+      "email": "finn@example.com",
+      "phoneNumber": "555222333",
+      "password": "securePass6",
+      "currentLocation": {
+        "latitude": 41.8781,
+        "longitude": -87.6298
+      },
+      "availableFunds": 1500,
+      "distanceTraveled": 220,
+      "reservationHistory": [
+        {
+          "id": 1,
+          "carId": 20,
+          "startDate": "2023-09-10",
+          "endDate": "2023-09-15",
+          "completed": false,
+          "location": {
+            "latitude": 41.8781,
+            "longitude": -87.6298
+          },
+          "price": 200
+        },
+        {
+          "id": 2,
+          "carId": 22,
+          "startDate": "2023-10-20",
+          "endDate": "2023-10-25",
+          "completed": true,
+          "location": {
+            "latitude": 41.8781,
+            "longitude": -87.6298
+          },
+          "price": 300
+        }
+      ],
+      "favoriteCars": [17, 19],
+      "payments": [
+        {
+          "date": "2023-09-25",
+          "amount": 120,
+          "type": "external",
+          "reservationId": 1
+        },
+        {
+          "date": "2023-10-25",
+          "amount": 180,
+          "type": "internal",
+          "reservationId": 2
+        }
+      ]
+    },
+    {
+      "id": "user007",
+      "firstName": "Grace",
+      "lastName": "Carter",
+      "email": "grace@example.com",
+      "phoneNumber": "555333444",
+      "password": "securePass7",
+      "currentLocation": {
+        "latitude": 34.0522,
+        "longitude": -118.2437
+      },
+      "availableFunds": 900,
+      "distanceTraveled": 120,
+      "reservationHistory": [
+        {
+          "id": 1,
+          "carId": 25,
+          "startDate": "2023-11-10",
+          "endDate": "2023-11-15",
+          "completed": false,
+          "location": {
+            "latitude": 34.0522,
+            "longitude": -118.2437
+          },
+          "price": 150
+        },
+        {
+          "id": 2,
+          "carId": 27,
+          "startDate": "2023-12-05",
+          "endDate": "2023-12-10",
+          "completed": true,
+          "location": {
+            "latitude": 34.0522,
+            "longitude": -118.2437
+          },
+          "price": 250
+        }
+      ],
+      "favoriteCars": [21, 24],
+      "payments": [
+        {
+          "date": "2023-11-20",
+          "amount": 80,
+          "type": "external",
+          "reservationId": 1
+        },
+        {
+          "date": "2023-12-10",
+          "amount": 130,
+          "type": "internal",
+          "reservationId": 2
+        }
+      ]
+    },
+    {
+      "id": "user008",
+      "firstName": "Henry",
+      "lastName": "Dixon",
+      "email": "henry@example.com",
+      "phoneNumber": "555444555",
+      "password": "securePass8",
+      "currentLocation": {
+        "latitude": 30.25,
+        "longitude": -97.75
+      },
+      "availableFunds": 1100,
+      "distanceTraveled": 160,
+      "reservationHistory": [
+        {
+          "id": 1,
+          "carId": 30,
+          "startDate": "2024-01-10",
+          "endDate": "2024-01-15",
+          "completed": false,
+          "location": {
+            "latitude": 30.25,
+            "longitude": -97.75
+          },
+          "price": 160
+        },
+        {
+          "id": 2,
+          "carId": 32,
+          "startDate": "2024-02-20",
+          "endDate": "2024-02-25",
+          "completed": true,
+          "location": {
+            "latitude": 30.25,
+            "longitude": -97.75
+          },
+          "price": 220
+        }
+      ],
+      "favoriteCars": [28, 30],
+      "payments": [
+        {
+          "date": "2024-01-20",
+          "amount": 90,
+          "type": "external",
+          "reservationId": 1
+        },
+        {
+          "date": "2024-02-25",
+          "amount": 130,
+          "type": "internal",
+          "reservationId": 2
+        }
+      ]
+    },
+    {
+      "id": "user009",
+      "firstName": "Isabella",
+      "lastName": "Edwards",
+      "email": "isabella@example.com",
+      "phoneNumber": "555555666",
+      "password": "securePass9",
+      "currentLocation": {
+        "latitude": 42.3601,
+        "longitude": -71.0589
+      },
+      "availableFunds": 1300,
+      "distanceTraveled": 200,
+      "reservationHistory": [
+        {
+          "id": 1,
+          "carId": 35,
+          "startDate": "2024-03-10",
+          "endDate": "2024-03-15",
+          "completed": false,
+          "location": {
+            "latitude": 42.3601,
+            "longitude": -71.0589
+          },
+          "price": 200
+        },
+        {
+          "id": 2,
+          "carId": 37,
+          "startDate": "2024-04-05",
+          "endDate": "2024-04-10",
+          "completed": true,
+          "location": {
+            "latitude": 42.3601,
+            "longitude": -71.0589
+          },
+          "price": 280
+        }
+      ],
+      "favoriteCars": [33, 35],
+      "payments": [
+        {
+          "date": "2024-03-20",
+          "amount": 110,
+          "type": "external",
+          "reservationId": 1
+        },
+        {
+          "date": "2024-04-10",
+          "amount": 170,
+          "type": "internal",
+          "reservationId": 2
+        }
+      ]
+    },
+    {
+      "id": "user010",
+      "firstName": "Eva",
+      "lastName": "Williams",
+      "email": "eva@example.com",
+      "phoneNumber": "555555555",
+      "password": "securePass2",
+      "currentLocation": {
+        "latitude": 30.2672,
+        "longitude": -97.7431
+      },
+      "availableFunds": 1200,
+      "distanceTraveled": 180,
+      "reservationHistory": [
+        {
+          "id": 1,
+          "carId": 7,
+          "startDate": "2023-08-10",
+          "endDate": "2023-08-15",
+          "completed": false,
+          "location": {
+            "latitude": 30.25,
+            "longitude": -97.75
+          },
+          "price": 180
+        },
+        {
+          "id": 2,
+          "carId": 9,
+          "startDate": "2023-09-05",
+          "endDate": "2023-09-10",
+          "completed": true,
+          "location": {
+            "latitude": 30.2672,
+            "longitude": -97.7431
+          },
+          "price": 220
+        }
+      ],
+      "favoriteCars": [6, 8],
+      "payments": [
+        {
+          "date": "2023-08-20",
+          "amount": 90,
+          "type": "external",
+          "reservationId": 1
+        },
+        {
+          "date": "2023-09-10",
+          "amount": 130,
+          "type": "internal",
+          "reservationId": 2
+        }
+      ]
+    }
+  ]
 }
