@@ -93,6 +93,16 @@ const MainPage = () => {
 										}
 									/>
 									<Route
+										path="/home/users/:userId"
+										element={
+											<UserDetailsPage
+												users={data.users}
+												onDeleteUser={() => {}}
+												onUpdateUser={() => {}}
+											/>
+										}
+									/>
+									<Route
 										path="/home/bookings/:bookingId"
 										element={
 											<UserDetailsPage
