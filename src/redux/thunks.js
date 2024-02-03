@@ -1,4 +1,4 @@
-import { loginSuccess, setUserData } from "./actions";
+import { loginSuccess, setUserData, setCarsData } from "./actions";
 import axios from 'axios';
 
 const URL = 'https://wedcarly.azurewebsites.net'; 
@@ -55,6 +55,27 @@ export const loginUser = (username, password) => async (dispatch) => {
       return response;
     } catch (error) {
       console.error('Failed to fetch user data:', error);
+      throw error; // Re-throw the error to indicate data fetching failure
+    }
+  };
+  
+  export const fetchCarsData = (jwtToken, page) => async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL}/manage/cars`, {
+          headers: {
+              Authorization: `Bearer ${jwtToken}`
+          },
+        params: {
+          page: page
+        },
+      });
+
+      dispatch(setCarsData(response.data));
+      console.log(response)
+      return response;
+
+    } catch (error) {
+      console.error('Failed to fetch cars data:', error);
       throw error; // Re-throw the error to indicate data fetching failure
     }
   };

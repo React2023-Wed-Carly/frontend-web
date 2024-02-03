@@ -1,18 +1,36 @@
 // CarsTab.jsx
-import React, { useState } from "react";
-import data from "../DummyData.json";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./CarsTab.css";
 import ListPage from "../components/ListPage";
+import { fetchCarsData  } from '../redux/thunks';
 
 const CarsTab = () => {
   // Example car data (you may replace this with actual data)
-  const cars = data.cars;
 
-  // State for search query, current page, and cars to display
+  const dispatch = useDispatch();
+  const cars = useSelector((state) => state.carsData);
+  const jwtToken = useSelector((state) => state.jwttoken);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const carsPerPage = 5; // Number of cars to display per page
+  const [currentPage, setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const carsPerPage = 20;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("Cars UseEffect is running!");
+        await dispatch(fetchCarsData(jwtToken, currentPage));
+        setLoading(false); // Update loading state after data is fetched
+      } catch (error) {
+        console.error("Error fetching cars data:", error);
+        setLoading(false); // Set loading to false in case of an error
+      }
+    };
+
+    fetchData();
+  }, [dispatch, jwtToken, currentPage]);
 
   // Filtering cars based on search query
   const filteredCars = cars;
@@ -22,8 +40,8 @@ const CarsTab = () => {
 
   // Slicing the cars to display for the current page
   const currentCars = filteredCars.slice(
-    (currentPage - 1) * carsPerPage,
-    currentPage * carsPerPage
+    (currentPage) * carsPerPage,
+    (currentPage + 1) * carsPerPage
   );
 
   // Handle page change
@@ -36,7 +54,7 @@ const CarsTab = () => {
       <div key={item.id} className="list-element">
         <Link to={`/home/cars/${item.id}`}>
           <p>
-            {item.id} {item.make} {item.model}
+            {item.info.id} {item.info.make} {item.info.model}
           </p>
         </Link>
       </div>
@@ -44,15 +62,19 @@ const CarsTab = () => {
   };
 
   return (
-    <ListPage
-      data={currentCars}
-      listItem={listItem}
-      currentPage={currentPage}
-      totalPages={totalPages}
-      searchQuery={searchQuery}
-      setSearchQuery={setSearchQuery}
-      handlePageChange={handlePageChange}
-    />
+    loading ? (
+      "Loading..."
+    ) : (
+      <ListPage
+        data={currentCars}
+        listItem={listItem}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        handlePageChange={handlePageChange}
+      />
+    )
   );
   return (
     <div>

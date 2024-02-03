@@ -1,6 +1,5 @@
 // UsersTab.jsx
 import React, { useState, useEffect } from "react";
-import data from "../DummyData.json";
 import { Link } from "react-router-dom";
 import "./UsersTab.css";
 import ListPage from "../components/ListPage";
@@ -13,12 +12,21 @@ const UsersTab = () => {
   const jwtToken = useSelector((state) => state.jwttoken);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(true);
   const usersPerPage = 20;
 
   useEffect(() => {
-    // Fetch user data when the component mounts
-    console.log("UseEffect is running!")
-    dispatch(fetchUserData(jwtToken, currentPage));
+    const fetchData = async () => {
+      try {
+        console.log("Cars UseEffect is running!");
+        await dispatch(fetchUserData(jwtToken, currentPage));
+        setLoading(false); // Update loading state after data is fetched
+      } catch (error) {
+        console.error("Error fetching users data:", error);
+        setLoading(false); // Set loading to false in case of an error
+      }
+    };
+    fetchData();
   }, [dispatch, jwtToken, currentPage]);
 
   const filteredUsers = users;
@@ -45,6 +53,7 @@ const UsersTab = () => {
   };
 
   return (
+    loading ? "Loading..." :
     <ListPage
       data={currentUsers}
       listItem={listItem}
@@ -53,7 +62,7 @@ const UsersTab = () => {
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
       handlePageChange={handlePageChange}
-    />
+    /> 
   );
 };
 

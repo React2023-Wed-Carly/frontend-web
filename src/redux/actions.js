@@ -1,7 +1,8 @@
 // actions.js
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const SET_USER_DATA = 'SET_USER_DATA';
 export const LOGOUT_USER = 'LOGOUT_USER';
+export const SET_USER_DATA = 'SET_USER_DATA';
+export const SET_CARS_DATA = 'SET_CARS_DATA';
 
 // Action to handle successful login
 export const loginSuccess = (jwtToken) => ({
@@ -9,13 +10,16 @@ export const loginSuccess = (jwtToken) => ({
   payload: jwtToken,
 });
 
-// Action to set user data in the state
+export const logoutUser = () => ({
+  type: 'LOGOUT_USER',
+});
+
 export const setUserData = (data) => ({
   type: 'SET_USER_DATA',
   payload: data,
 });
 
-export const logoutUser = () => ({
-    type: 'LOGOUT_USER',
-  });
-
+export const setCarsData = (data) => ({
+  type: 'SET_CARS_DATA',
+  payload: data,
+});
