@@ -11,10 +11,10 @@ export const loginUser = (username, password) => async (dispatch) => {
         password,
       });
       const token = response.data.jwttoken;
-      console.log(response.status);
       // Dispatch login success action with the token
       dispatch(loginSuccess(token));
-  
+    
+      console.log("Logging in!");
       // Return the response for further processing if needed
       return response;
     } catch (error) {
@@ -26,17 +26,26 @@ export const loginUser = (username, password) => async (dispatch) => {
   };
   
   // Async action to fetch user data
-  export const fetchUserData = (jwtToken, page) => async (dispatch) => {
+  export const fetchUserData = (jwtToken, page, userId, username) => async (dispatch) => {
     try {
+      const params = {};
+    
+      if (page !== undefined) {
+        params.page = page;
+      }
+  
+      if (userId !== undefined) {
+        params.userId = userId;
+      }
+  
+      if (username !== undefined) {
+        params.username = username;
+      }
       const response = await axios.get(`${URL}/manage/users`, {
           headers: {
               Authorization: `Bearer ${jwtToken}`
           },
-        params: {
-          page: page,
-          userId: 2, // hard coded because getting users page without filters is broken at backend rn
-          username: "usr2"
-        },
+        params: params,
       });
   
       // Dispatch setUserData action with the fetched data

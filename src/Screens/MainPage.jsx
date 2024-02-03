@@ -28,22 +28,22 @@ const MainPage = () => {
 	const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
 	const handleLogin = async (username, password) => {
-		try {
-		  // Dispatch the loginUser action to get the token
-		  const response = await dispatch(loginUser(username, password));
+		// try {
+		//   // Dispatch the loginUser action to get the token
+		//   //const response = await dispatch(loginUser(username, password));
 	
-		  // Assuming the backend returns a token in the response
-		  const token = response.data.token;
+		//   // Assuming the backend returns a token in the response
+		//   //const token = response.data.token;
 	
-		  // Specify the desired page (e.g., 1, 2, 3, etc.)
-		  const desiredPage = 0;
-	
-		  // Dispatch fetchUserData action to get user data with the specified page
-		  await dispatch(fetchUserData(desiredPage));
-		} catch (error) {
-		  console.error('Login failed:', error);
-		  alert('Invalid credentials. Please try again.');
-		}
+		//   // Specify the desired page (e.g., 1, 2, 3, etc.)
+		//   //const desiredPage = 0;
+			
+		//   // Dispatch fetchUserData action to get user data with the specified page
+		//   //await dispatch(fetchUserData(desiredPage));
+		// } catch (error) {
+		//   console.error('Login failed:', error);
+		//   alert('Invalid credentials. Please try again.');
+		// }
 	  };
 	
 	  const handleLogout = () => {

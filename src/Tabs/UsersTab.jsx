@@ -11,14 +11,13 @@ const UsersTab = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.userData);
   const jwtToken = useSelector((state) => state.jwttoken);
-  console.log(jwtToken)
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const usersPerPage = 20;
 
   useEffect(() => {
     // Fetch user data when the component mounts
-    console.log(jwtToken)
+    console.log("UseEffect is running!")
     dispatch(fetchUserData(jwtToken, currentPage));
   }, [dispatch, jwtToken, currentPage]);
 

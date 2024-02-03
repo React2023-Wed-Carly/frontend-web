@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import MainPage from './Screens/MainPage';
 import store from "./redux/store";
 import { Provider } from "react-redux";
