@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { loginUser, fetchUserData } from '../redux/thunks';
 import './LoginPage.css';
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
