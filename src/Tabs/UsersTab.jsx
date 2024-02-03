@@ -18,7 +18,7 @@ const UsersTab = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Cars UseEffect is running!");
+        console.log("Users UseEffect is running!");
         await dispatch(fetchUserData(jwtToken, currentPage));
         setLoading(false); // Update loading state after data is fetched
       } catch (error) {
@@ -57,7 +57,7 @@ const UsersTab = () => {
     <ListPage
       data={currentUsers}
       listItem={listItem}
-      currentPage={currentPage}
+      currentPage={currentPage + 1}
       totalPages={totalPages}
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}

@@ -1,4 +1,4 @@
-import { loginSuccess, setUserData, setCarsData } from "./actions";
+import { loginSuccess, setUserData, setCarsData, setBookingsData, setPaymentsData } from "./actions";
 import axios from 'axios';
 
 const URL = 'https://wedcarly.azurewebsites.net'; 
@@ -76,7 +76,48 @@ export const loginUser = (username, password) => async (dispatch) => {
 
     } catch (error) {
       console.error('Failed to fetch cars data:', error);
-      throw error; // Re-throw the error to indicate data fetching failure
+      throw error;
     }
   };
   
+  export const fetchBookingsData = (jwtToken, page) => async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL}/manage/bookings`, {
+          headers: {
+              Authorization: `Bearer ${jwtToken}`
+          },
+        params: {
+          page: page
+        },
+      });
+
+      dispatch(setBookingsData(response.data));
+      console.log(response)
+      return response;
+
+    } catch (error) {
+      console.error('Failed to fetch bookings data:', error);
+      throw error; 
+    }
+  };
+  
+  export const fetchPaymentsData = (jwtToken, page) => async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL}/manage/payments`, {
+          headers: {
+              Authorization: `Bearer ${jwtToken}`
+          },
+        params: {
+          page: page
+        },
+      });
+
+      dispatch(setPaymentsData(response.data));
+      console.log(response)
+      return response;
+
+    } catch (error) {
+      console.error('Failed to fetch bookings data:', error);
+      throw error; 
+    }
+  };

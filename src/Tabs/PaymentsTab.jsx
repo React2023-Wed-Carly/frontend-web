@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import data from "../DummyData.json";
 import { Link } from "react-router-dom";
 import ListPage from "../components/ListPage";
-
 const PaymentsTab = () => {
   const payments = data.payments;
 

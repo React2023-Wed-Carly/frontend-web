@@ -1,10 +1,13 @@
-import {LOGOUT_USER, SET_USER_DATA, LOGIN_SUCCESS, SET_CARS_DATA} from "./actions";
+import {LOGOUT_USER, SET_USER_DATA, LOGIN_SUCCESS, SET_CARS_DATA, 
+    SET_BOOKINGS_DATA, SET_PAYMENTS_DATA} from "./actions";
 
 const initialState = {
     isLoggedIn: false,
     jwttoken: null,
     userData: [],
     carsData: [],
+    bookingsData: [],
+    paymentsData: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -19,7 +22,7 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                jwtToken: null,
+                jwttoken: null,
                 userData: [],
             };
         case SET_USER_DATA:
@@ -31,6 +34,16 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 carsData: action.payload,
+            };
+        case SET_BOOKINGS_DATA:
+            return {
+                ...state,
+                bookingsData: action.payload,
+            };
+        case SET_PAYMENTS_DATA:
+            return {
+                ...state,
+                paymentsData: action.payload,
             };
         default:
             return state;

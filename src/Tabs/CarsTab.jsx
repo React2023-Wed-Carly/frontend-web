@@ -7,8 +7,7 @@ import ListPage from "../components/ListPage";
 import { fetchCarsData  } from '../redux/thunks';
 
 const CarsTab = () => {
-  // Example car data (you may replace this with actual data)
-
+  
   const dispatch = useDispatch();
   const cars = useSelector((state) => state.carsData);
   const jwtToken = useSelector((state) => state.jwttoken);
@@ -68,7 +67,7 @@ const CarsTab = () => {
       <ListPage
         data={currentCars}
         listItem={listItem}
-        currentPage={currentPage}
+        currentPage={currentPage + 1}
         totalPages={totalPages}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
