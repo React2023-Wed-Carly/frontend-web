@@ -1,6 +1,5 @@
 // BookingsTab.jsx
 import React, { useState, useEffect } from "react";
-import data from "../DummyData.json";
 import { Link } from "react-router-dom";
 import ListPage from "../components/ListPage";
 import { fetchBookingsData  } from '../redux/thunks';
