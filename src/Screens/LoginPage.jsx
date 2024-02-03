@@ -1,23 +1,30 @@
 // LoginPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser, fetchUserData } from '../redux/thunks';
 import './LoginPage.css';
 
 const LoginPage = ({ onLogin }) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const handleLogin = () => {
-		// In a real application, you would perform authentication logic here.
-		// For simplicity, let's use a hardcoded example.
-		if (username === 'example' && password === 'password') {
-			onLogin();
-			navigate('/main');
-		} else {
-			alert('Invalid credentials. Please try again.');
+	const handleLogin = async () => {
+		try {
+		  // Dispatch the loginUser action to get the token
+		  const response = await dispatch(loginUser(username, password));
+			
+		  if (response.status === 200)
+		  {
+			console.log(`${response}`)
+		  	navigate('/main');
+		  }
+		} catch (error) {
+		  console.error('Login failed:', error);
 		}
-	};
+	  };
 
 	return (
 		<div className="container has-text-centered">

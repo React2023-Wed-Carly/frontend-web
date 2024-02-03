@@ -18,17 +18,39 @@ import UserDetailsPage from '../DetailPages/UserDetailsPage';
 import 'bulma/css/bulma.min.css';
 import './MainPage.css';
 import data from '../DummyData.json';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser, fetchUserData } from '../redux/thunks';
+import { logoutUser } from '../redux/actions';
 
 const MainPage = () => {
-	const [isLoggedIn, setLoggedIn] = useState(false);
+	const dispatch = useDispatch();
+	//const [isLoggedIn, setLoggedIn] = useState(false);
+	const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
-	const handleLogin = () => {
-		setLoggedIn(true);
-	};
-
-	const handleLogout = () => {
-		setLoggedIn(false);
-	};
+	const handleLogin = async (username, password) => {
+		try {
+		  // Dispatch the loginUser action to get the token
+		  const response = await dispatch(loginUser(username, password));
+	
+		  // Assuming the backend returns a token in the response
+		  const token = response.data.token;
+	
+		  // Specify the desired page (e.g., 1, 2, 3, etc.)
+		  const desiredPage = 0;
+	
+		  // Dispatch fetchUserData action to get user data with the specified page
+		  await dispatch(fetchUserData(desiredPage));
+		} catch (error) {
+		  console.error('Login failed:', error);
+		  alert('Invalid credentials. Please try again.');
+		}
+	  };
+	
+	  const handleLogout = () => {
+		// Dispatch the logoutUser action to reset authentication state
+		dispatch(logoutUser());
+	  };
+	
 
 	return (
 		<Router>

@@ -1,24 +1,34 @@
 // UsersTab.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import data from "../DummyData.json";
 import { Link } from "react-router-dom";
 import "./UsersTab.css";
 import ListPage from "../components/ListPage";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserData  } from '../redux/thunks';
 
 const UsersTab = () => {
-  const users = data.users;
-
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.userData);
+  const jwtToken = useSelector((state) => state.jwttoken);
+  console.log(jwtToken)
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(0);
+  const usersPerPage = 20;
+
+  useEffect(() => {
+    // Fetch user data when the component mounts
+    console.log(jwtToken)
+    dispatch(fetchUserData(jwtToken, currentPage));
+  }, [dispatch, jwtToken, currentPage]);
 
   const filteredUsers = users;
 
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
 
   const currentUsers = filteredUsers.slice(
-    (currentPage - 1) * usersPerPage,
-    currentPage * usersPerPage
+    (currentPage) * usersPerPage,
+    (currentPage + 1) * usersPerPage
   );
 
   const handlePageChange = (newPage) => {
