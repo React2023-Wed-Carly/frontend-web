@@ -1,12 +1,17 @@
 // CarDetailsPage.jsx
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import 'bulma/css/bulma.min.css';
 import './CarDetailsPage.css'; // Import the CSS file
 
-const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
+const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
+	const cars = useSelector((state) => state.carsData);
+	const jwtToken = useSelector((state) => state.jwttoken);
 	const { carId } = useParams();
-	const car = cars.find((car) => car.id === parseInt(carId));
+	const carAll = cars.find((car) => car.info.id === parseInt(carId));
+	const imageString = carAll.img;
+	const car = carAll.info;
 	const [newFeature, setNewFeature] = useState('');
 	const [isEditing, setEditing] = useState(false);
 
@@ -48,17 +53,17 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 			<h2 className="title is-4">Details of car {car.id}</h2>
 
 			<div className="field">
-				<label className="label">Owner:</label>
+				<label className="label">Owner ID:</label>
 				<div className="control">
 					{isEditing ? (
 						<input
 							className="input"
 							type="text"
-							value={car.owner}
-							onChange={(e) => onUpdateCar(car.id, { owner: e.target.value })}
+							value={car.ownerId}
+							onChange={(e) => onUpdateCar(car.id, { ownerId: e.target.value })}
 						/>
 					) : (
-						<span>{car.owner}</span>
+						<span>{car.ownerId}</span>
 					)}
 				</div>
 			</div>
@@ -74,7 +79,10 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 							onChange={(e) => onUpdateCar(car.id, { photo: e.target.value })}
 						/>
 					) : (
-						<span>{car.photo}</span>
+						<span>
+							<img src={`data:image/jpeg;base64,${imageString}`} alt={car.model}
+							style={{height: 360}}/>
+						</span>
 					)}
 				</div>
 			</div>
@@ -159,7 +167,7 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 							}
 						/>
 					) : (
-						<span>{car.dailyPrice}</span>
+						<span>${car.dailyPrice / 100}.{car.dailyPrice % 100}</span>
 					)}
 				</div>
 			</div>
@@ -173,7 +181,7 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 							<input
 								className="input"
 								type="number"
-								value={car.location.latitude}
+								value={car.latitude}
 								onChange={(e) =>
 									onUpdateCar(car.id, {
 										location: {
@@ -187,7 +195,7 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 							<input
 								className="input"
 								type="number"
-								value={car.location.longitude}
+								value={car.latitude}
 								onChange={(e) =>
 									onUpdateCar(car.id, {
 										location: {
@@ -200,8 +208,8 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 						</div>
 					) : (
 						<span>
-							Latitude: {car.location.latitude}, Longitude:{' '}
-							{car.location.longitude}
+							Latitude: {car.latitude}, Longitude:{' '}
+							{car.latitude}
 						</span>
 					)}
 				</div>
@@ -276,7 +284,7 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 							}
 						/>
 					) : (
-						<span>{car.mileage}</span>
+						<span>{car.mileage} km</span>
 					)}
 				</div>
 			</div>
@@ -323,7 +331,7 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 							</div>
 						</div>
 					) : (
-						<span>{car.features.join(', ')}</span>
+						<span>{car.features}</span>
 					)}
 				</div>
 			</div>

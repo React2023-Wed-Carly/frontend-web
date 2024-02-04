@@ -88,7 +88,6 @@ const MainPage = () => {
 										path="/home/cars/:carId"
 										element={
 											<CarDetailsPage
-												cars={data.cars}
 												onDeleteCar={() => {}}
 												onUpdateCar={() => {}}
 											/>

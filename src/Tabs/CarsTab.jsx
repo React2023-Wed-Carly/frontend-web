@@ -51,7 +51,7 @@ const CarsTab = () => {
   const listItem = ( item ) => {
     return (
       <div key={item.id} className="list-element">
-        <Link to={`/home/cars/${item.id}`}>
+        <Link to={`/home/cars/${item.info.id}`}>
           <p>
             {item.info.id} {item.info.make} {item.info.model}
           </p>
