@@ -97,7 +97,6 @@ const MainPage = () => {
 										path="/home/users/:userId"
 										element={
 											<UserDetailsPage
-												users={data.users}
 												onDeleteUser={() => {}}
 												onUpdateUser={() => {}}
 											/>
