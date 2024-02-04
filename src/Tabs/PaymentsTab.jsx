@@ -46,7 +46,7 @@ const PaymentsTab = () => {
     return (
       <div key={item.id} className="list-element">
         <Link to={`/home/payments/${item.id}`}>
-          <p>ID: {item.id} Amount: ${item.amount} Date: {item.date}</p>
+          <p>ID: {item.id} Amount: ${item.amount}</p>
         </Link>
       </div>
     );

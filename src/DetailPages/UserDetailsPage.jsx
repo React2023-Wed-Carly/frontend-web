@@ -5,7 +5,7 @@ import "bulma/css/bulma.min.css";
 import "./UserDetailsPage.css"; // Import the CSS file
 import Detail from "../components/Detail";
 
-const UserDetailsPage = ({ onUpdateUser, onDeleteUser }) => {
+const UserDetailsPage = () => {
   const users = useSelector((state) => state.userData);
 	const jwtToken = useSelector((state) => state.jwttoken);
   const { userId } = useParams();
@@ -26,6 +26,13 @@ const UserDetailsPage = ({ onUpdateUser, onDeleteUser }) => {
     // todo
   };
 
+  const parseFloat = (bigInt) => {
+    if (bigInt < 100)
+      return `${bigInt}.0`
+    else
+      return `${bigInt / 100}.${bigInt % 100}`
+  }
+
   if (!user) {
     return <div>User not found</div>;
   }
@@ -34,54 +41,30 @@ const UserDetailsPage = ({ onUpdateUser, onDeleteUser }) => {
     <div className="rows">
       <h2 className="title is-4">Details of user {user.id}</h2>
       <Detail
-        isEditing={isEditing}
-        id={user.id}
         detailLabel="Username"
-        detailTitle="username"
         detailValue={user.username}
-        onUpdate={onUpdateUser}
       ></Detail>
       <Detail
-        isEditing={isEditing}
-        id={user.id}
         detailLabel="Firstname"
-        detailTitle="firstName"
         detailValue={user.firstname}
-        onUpdate={onUpdateUser}
       ></Detail>
       <Detail
-        isEditing={isEditing}
-        id={user.id}
         detailLabel="Lastname"
-        detailTitle="lastName"
         detailValue={user.lastName}
-        onUpdate={onUpdateUser}
       ></Detail>
       <Detail
-        isEditing={isEditing}
-        id={user.id}
         detailLabel="Email"
-        detailTitle="email"
         detailValue={user.email}
-        onUpdate={onUpdateUser}
       ></Detail>
       <Detail
-        isEditing={isEditing}
-        id={user.id}
         detailLabel="Balance"
-        detailTitle="balance"
-        detailValue={`$${user.balance / 100}.${user.balance % 100}`}
-        onUpdate={onUpdateUser}
+        detailValue={"$" + parseFloat(user.balance)}
       ></Detail>
       <Detail
-        isEditing={isEditing}
-        id={user.id}
         detailLabel="Distance Travelled"
-        detailTitle="distance"
-        detailValue={`${user.DistanceTravelled / 100}.${user.DistanceTravelled % 100} km`}
-        onUpdate={onUpdateUser}
+        detailValue={parseFloat(user.DistanceTravelled) + " km"}
       ></Detail>
-
+      {/*
       <div className="field is-grouped">
         {isEditing ? (
           <>
@@ -103,7 +86,7 @@ const UserDetailsPage = ({ onUpdateUser, onDeleteUser }) => {
             </button>
           </div>
         )}
-      </div>
+      </div>*/}
     </div>
   );
 };

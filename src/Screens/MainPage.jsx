@@ -87,19 +87,13 @@ const MainPage = () => {
 									<Route
 										path="/home/cars/:carId"
 										element={
-											<CarDetailsPage
-												onDeleteCar={() => {}}
-												onUpdateCar={() => {}}
-											/>
+											<CarDetailsPage/>
 										}
 									/>
 									<Route
 										path="/home/users/:userId"
 										element={
-											<UserDetailsPage
-												onDeleteUser={() => {}}
-												onUpdateUser={() => {}}
-											/>
+											<UserDetailsPage/>
 										}
 									/>
 									<Route
