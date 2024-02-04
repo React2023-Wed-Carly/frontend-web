@@ -1,5 +1,5 @@
 import {LOGOUT_USER, SET_USER_DATA, LOGIN_SUCCESS, SET_CARS_DATA, 
-    SET_BOOKINGS_DATA, SET_PAYMENTS_DATA} from "./actions";
+    SET_BOOKINGS_DATA, SET_PAYMENTS_DATA, DELETE_CAR} from "./actions";
 
 const initialState = {
     isLoggedIn: false,
@@ -24,6 +24,9 @@ const rootReducer = (state = initialState, action) => {
                 isLoggedIn: false,
                 jwttoken: null,
                 userData: [],
+                carsData: [],
+                bookingsData: [],
+                paymentsData: [],
             };
         case SET_USER_DATA:
             return {
@@ -45,6 +48,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 paymentsData: action.payload,
             };
+        case DELETE_CAR:
+            const updatedCarsData = state.carsData.filter(car => car.id !== action.payload);
+            return {
+                ...state,
+                carsData: updatedCarsData,
+              };
         default:
             return state;
     }

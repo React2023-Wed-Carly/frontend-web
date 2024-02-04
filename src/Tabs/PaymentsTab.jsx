@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ListPage from "../components/ListPage";
 import { fetchPaymentsData  } from '../redux/thunks';
 import { useDispatch, useSelector } from "react-redux";
+import { bigintToFloat } from "../utils";
 
 const PaymentsTab = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const PaymentsTab = () => {
     return (
       <div key={item.id} className="list-element">
         <Link to={`/home/payments/${item.id}`}>
-          <p>ID: {item.id} Amount: ${item.amount}</p>
+          <p>ID: {item.id} Amount: ${bigintToFloat(item.amount)}</p>
         </Link>
       </div>
     );

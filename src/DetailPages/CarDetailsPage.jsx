@@ -1,18 +1,22 @@
 // CarDetailsPage.jsx
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useParams, Route, Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import 'bulma/css/bulma.min.css';
 import './CarDetailsPage.css'; // Import the CSS file
 import {bigintToFloat} from "../utils";
+import { requestDeleteCar } from '../redux/thunks';
 
 const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const cars = useSelector((state) => state.carsData);
 	const jwtToken = useSelector((state) => state.jwttoken);
 	const { carId } = useParams();
 	const carAll = cars.find((car) => car.info.id === parseInt(carId));
 	const imageString = carAll.img;
 	const car = carAll.info;
+	const features = car.features.split(',');
 	const [newFeature, setNewFeature] = useState('');
 	const [isEditing, setEditing] = useState(false);
 
@@ -27,12 +31,22 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 
 	const handleDelete = () => {
 		// todo
+		try{
+			const response = dispatch(requestDeleteCar(jwtToken, carId));
+			if (response.status === 200)
+			{
+			console.log(`${response}`)
+				navigate('/main');
+			}
+	  } catch (error) {
+		console.error('Car deletion failed:', error);
+	  }
 	};
 
 	// todo
 	const addFeature = () => {
 		if (newFeature.trim() !== '') {
-			const updatedFeatures = [...car.features, newFeature];
+			const updatedFeatures = [...features, newFeature];
 			onUpdateCar(car.id, { features: updatedFeatures });
 			setNewFeature('');
 		}
@@ -40,7 +54,7 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 
 	// todo
 	const deleteFeature = (index) => {
-		const updatedFeatures = [...car.features];
+		const updatedFeatures = [...features];
 		updatedFeatures.splice(index, 1);
 		onUpdateCar(car.id, { features: updatedFeatures });
 	};
@@ -296,14 +310,14 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 				<div className="control">
 					{isEditing ? (
 						<div>
-							{car.features.map((feature, index) => (
+							{features.map((feature, index) => (
 								<div key={index} className="feature-edit">
 									<input
 										className="input"
 										type="text"
 										value={feature}
 										onChange={(e) => {
-											const updatedFeatures = [...car.features];
+											const updatedFeatures = [...features];
 											updatedFeatures[index] = e.target.value;
 											onUpdateCar(car.id, { features: updatedFeatures });
 										}}
@@ -333,7 +347,7 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 							</div>
 						</div>
 					) : (
-						<span>{car.features}</span>
+						<span>{features.join(', ')}</span>
 					)}
 				</div>
 			</div>

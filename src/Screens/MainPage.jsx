@@ -7,6 +7,7 @@ import {
 	Link,
 	Navigate,
 	NavLink,
+	useNavigate,
 } from 'react-router-dom';
 import CarsTab from '../Tabs/CarsTab';
 import UsersTab from '../Tabs/UsersTab';
@@ -26,6 +27,7 @@ import { logoutUser } from '../redux/actions';
 const MainPage = () => {
 	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.isLoggedIn);
+	//const navigate = useNavigate();
 	
 	const handleLogout = () => {
 	// Dispatch the logoutUser action to reset authentication state
@@ -81,7 +83,7 @@ const MainPage = () => {
 						<div className="column">
 							<div className="tab-content">
 								<Routes>
-									<Route path="/home/cars" element={<CarsTab />} />
+									<Route path="/home/cars" element={<CarsTab/>} />
 									<Route path="/home/users" element={<UsersTab />} />
 									<Route path="/home/bookings" element={<BookingsTab />} />
 									<Route path="/home/payments" element={<PaymentsTab />} />

@@ -5,6 +5,7 @@ export const SET_USER_DATA = 'SET_USER_DATA';
 export const SET_CARS_DATA = 'SET_CARS_DATA';
 export const SET_BOOKINGS_DATA = 'SET_BOOKINGS_DATA';
 export const SET_PAYMENTS_DATA = 'SET_PAYMENTS_DATA';
+export const DELETE_CAR = 'DELETE_CAR';
 
 // Action to handle successful login
 export const loginSuccess = (jwttoken) => ({
@@ -32,4 +33,9 @@ export const setBookingsData = (data) => ({
 export const setPaymentsData = (data) => ({
   type: 'SET_PAYMENTS_DATA',
   payload: data,
+});
+
+export const deleteCar = (carId) => ({
+  type: 'DELETE_CAR',
+  payload: carId,
 });
