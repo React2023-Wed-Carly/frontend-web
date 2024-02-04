@@ -51,6 +51,10 @@ const CarsTab = () => {
   const listItem = ( item ) => {
     return (
       <div key={item.id} className="list-element">
+        <figure className="image is-128x128">
+          <img src={`data:image/jpeg;base64,${item.img}`} alt={item.info.model}
+          className="is-rounded"></img>
+        </figure>
         <Link to={`/home/cars/${item.info.id}`}>
           <p>
             {item.info.id} {item.info.make} {item.info.model}
