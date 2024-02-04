@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import 'bulma/css/bulma.min.css';
 import './CarDetailsPage.css'; // Import the CSS file
+import {bigintToFloat} from "../utils";
 
 const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 	const cars = useSelector((state) => state.carsData);
@@ -167,7 +168,8 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 							}
 						/>
 					) : (
-						<span>${car.dailyPrice / 100}.{car.dailyPrice % 100}</span>
+						
+						<span>${bigintToFloat(car.dailyPrice)}</span>
 					)}
 				</div>
 			</div>

@@ -1,46 +1,47 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "bulma/css/bulma.min.css";
-import "./UserDetailsPage.css"; // Import the CSS file
+import "./UserDetailsPage.css";
 import Detail from "../components/Detail";
 import {bigintToFloat} from "../utils";
 
-const UserDetailsPage = () => {
-  const users = useSelector((state) => state.userData);
-  const { userId } = useParams();
-  const user = users.find((user) => user.id === parseInt(userId));
+const BookingDetailsPage = () => {
+  const bookings = useSelector((state) => state.bookingsData);
+  const { bookingId } = useParams();
+  const booking = bookings.find((booking) => booking.id === parseInt(bookingId));
 
-  if (!user) {
-    return <div>User not found</div>;
+  if (!booking) {
+    return <div>Booking not found</div>;
   }
 
   return (
     <div className="rows">
-      <h2 className="title is-4">Details of user {user.username}</h2>
+      <h2 className="title is-4">Details of booking {booking.id}</h2>
       <Detail
-        detailLabel="Username"
-        detailValue={user.username}
+        detailLabel="ID"
+        detailValue={booking.id}
       ></Detail>
       <Detail
-        detailLabel="Firstname"
-        detailValue={user.firstname}
+        detailLabel="Car"
+        detailValue={booking.carId}
       ></Detail>
       <Detail
-        detailLabel="Lastname"
-        detailValue={user.lastName}
+        detailLabel="User"
+        detailValue={booking.userId}
       ></Detail>
       <Detail
-        detailLabel="Email"
-        detailValue={user.email}
+        detailLabel="Booking start date"
+        detailValue={booking.startDate}
       ></Detail>
       <Detail
-        detailLabel="Balance"
-        detailValue={"$" + bigintToFloat(user.balance)}
+        detailLabel="Booking end date"
+        detailValue={booking.endDate}
       ></Detail>
       <Detail
-        detailLabel="Distance Travelled"
-        detailValue={bigintToFloat(user.DistanceTravelled) + " km"}
+        detailLabel="Location"
+        detailValue={`Latitude ${booking.latitude}, Longitude: ${booking.longitude}`}
       ></Detail>
+
       {/*
       <div className="field is-grouped">
         {isEditing ? (
@@ -68,4 +69,4 @@ const UserDetailsPage = () => {
   );
 };
 
-export default UserDetailsPage;
+export default BookingDetailsPage;

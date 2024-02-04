@@ -15,6 +15,8 @@ import PaymentsTab from '../Tabs/PaymentsTab';
 import LoginPage from './LoginPage';
 import CarDetailsPage from '../DetailPages/CarDetailsPage'; // Import the CarDetailsPage
 import UserDetailsPage from '../DetailPages/UserDetailsPage';
+import PaymentDetailsPage from '../DetailPages/PaymentDetailsPage';
+import BookingDetailsPage from '../DetailPages/BookingDetailsPage';
 import 'bulma/css/bulma.min.css';
 import './MainPage.css';
 import data from '../DummyData.json';
@@ -23,7 +25,6 @@ import { logoutUser } from '../redux/actions';
 
 const MainPage = () => {
 	const dispatch = useDispatch();
-	//const [isLoggedIn, setLoggedIn] = useState(false);
 	const isLoggedIn = useSelector((state) => state.isLoggedIn);
 	
 	const handleLogout = () => {
@@ -99,21 +100,13 @@ const MainPage = () => {
 									<Route
 										path="/home/bookings/:bookingId"
 										element={
-											<UserDetailsPage
-												bookings={data.reservations}
-												onDeleteUser={() => {}}
-												onUpdateUser={() => {}}
-											/>
+											<BookingDetailsPage/>
 										}
 									/>
 									<Route
 										path="/home/payments/:paymentId"
 										element={
-											<UserDetailsPage
-												payments={data.payments}
-												onDeleteUser={() => {}}
-												onUpdateUser={() => {}}
-											/>
+											<PaymentDetailsPage/>
 										}
 									/>
 									{/* Add a default route for /main that redirects to /home/cars */}
