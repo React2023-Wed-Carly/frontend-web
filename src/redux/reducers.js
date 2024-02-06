@@ -55,13 +55,13 @@ const rootReducer = (state = initialState, action) => {
                 carsData: updatedCarsData,
               };
         case CANCEL_BOOKING:
-        const updatedBookingsData = state.bookingsData.filter(booking => booking.id !== action.payload);
-        return {
-            ...state,
-            bookingsData: updatedBookingsData,
-            };
+            const updatedBookingsData = state.bookingsData.filter(booking => booking.id !== action.payload);
+            return {
+                ...state,
+                bookingsData: updatedBookingsData,
+                };
         default:
-            return state;
+        return state;
     }
 };
 
