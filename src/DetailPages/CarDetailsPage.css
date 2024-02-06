@@ -5,7 +5,9 @@
 	margin: auto;
 	margin-top: 20px;
 }
-
+.rows {
+	margin: 0 auto;
+}
 .title {
 	margin-bottom: 20px;
 }
