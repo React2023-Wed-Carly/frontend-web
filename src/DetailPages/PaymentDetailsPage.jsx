@@ -33,30 +33,6 @@ const PaymentDetailsPage = () => {
         detailLabel="Amount"
         detailValue={`$${bigintToFloat(payment.amount)}`}
       ></Detail>
-
-      {/*
-      <div className="field is-grouped">
-        {isEditing ? (
-          <>
-            <div className="control">
-              <button className="button is-success" onClick={handleSave}>
-                Save
-              </button>
-            </div>
-            <div className="control">
-              <button className="button is-danger" onClick={handleDelete}>
-                Delete
-              </button>
-            </div>
-          </>
-        ) : (
-          <div className="control">
-            <button className="button is-info" onClick={handleEdit}>
-              Edit
-            </button>
-          </div>
-        )}
-      </div>*/}
     </div>
   );
 };

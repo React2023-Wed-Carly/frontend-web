@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginUser, fetchUserData } from '../redux/thunks';
+import { loginUser } from '../redux/thunks';
 import './LoginPage.css';
 
 const LoginPage = () => {

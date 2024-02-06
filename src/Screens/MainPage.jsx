@@ -1,5 +1,5 @@
 // MainPage.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -7,7 +7,6 @@ import {
 	Link,
 	Navigate,
 	NavLink,
-	useNavigate,
 } from 'react-router-dom';
 import CarsTab from '../Tabs/CarsTab';
 import UsersTab from '../Tabs/UsersTab';
@@ -21,14 +20,12 @@ import BookingDetailsPage from '../DetailPages/BookingDetailsPage';
 import AddCarPage from '../DetailPages/AddCarPage';
 import 'bulma/css/bulma.min.css';
 import './MainPage.css';
-import data from '../DummyData.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../redux/actions';
 
 const MainPage = () => {
 	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.isLoggedIn);
-	//const navigate = useNavigate();
 	
 	const handleLogout = () => {
 	// Dispatch the logoutUser action to reset authentication state
@@ -74,7 +71,7 @@ const MainPage = () => {
 									<Link
 										to="/"
 										onClick={handleLogout}
-										className="button is-outlined is-danger"
+										className="button is-outlined "
 									>
 										Logout
 									</Link>

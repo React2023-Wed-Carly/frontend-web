@@ -3,11 +3,15 @@
 	padding: 0px;
 	margin: 0px;
 	height: 100vh;
+	flex: content;
+	align-items: center;
+	align-content: center;
 }
 
 .menu {
 	width: 200px;
-	background-color: #f5f5f5;
+	height: 100vh;
+	background-color: #F8DC49;
 	border-radius: 5px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -42,11 +46,11 @@
 	width: 200px;
 	position: absolute;
 	bottom: 3%;
-	left: 12%;
+	left: 25%;
 }
 
 .sidebar {
-	padding: 30px;
+	padding-left: 30px;
 	flex: 0 0 auto; /* Fix the sidebar's size */
 	width: 220px; /* Set the width of the sidebar */
 	height: 100vh; /* Set the full height of the viewport */

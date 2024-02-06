@@ -149,7 +149,7 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 		<div className="rows">
 			<h2 className="title is-4">Details of car {car.id}</h2>
 			<div className="field">
-				<label className="label">Photo:</label>
+				{/*<label className="label">Photo:</label>*/}
 				<div className="control">
 					{isEditing ? (
 						<div class="file has-name">

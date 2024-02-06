@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import "bulma/css/bulma.min.css";
 import "./UserDetailsPage.css";
 import Detail from "../components/Detail";
-import {bigintToFloat} from "../utils";
+import { DateTime, bigintToFloat } from "../utils";
 
 const BookingDetailsPage = () => {
   const bookings = useSelector((state) => state.bookingsData);
@@ -15,33 +15,37 @@ const BookingDetailsPage = () => {
   }
 
   return (
-    <div className="rows">
-      <h2 className="title is-4">Details of booking {booking.id}</h2>
-      <Detail
-        detailLabel="ID"
-        detailValue={booking.id}
-      ></Detail>
-      <Detail
-        detailLabel="Car"
-        detailValue={booking.carId}
-      ></Detail>
-      <Detail
-        detailLabel="User"
-        detailValue={booking.userId}
-      ></Detail>
-      <Detail
-        detailLabel="Booking start date"
-        detailValue={booking.startDate}
-      ></Detail>
-      <Detail
-        detailLabel="Booking end date"
-        detailValue={booking.endDate}
-      ></Detail>
-      <Detail
-        detailLabel="Location"
-        detailValue={`Latitude ${booking.latitude}, Longitude: ${booking.longitude}`}
-      ></Detail>
+    <div>
+      <h2 className="title is-3">Details of booking {booking.id}</h2>
+      <div className="rows">
+        <Detail
+          detailLabel="ID"
+          detailValue={booking.id}
+        ></Detail>
+        <Detail
+          detailLabel="Car"
+          detailValue={booking.carId}
+        ></Detail>
+        <Detail
+          detailLabel="User"
+          detailValue={booking.userId}
+        ></Detail>
 
+        <Detail
+          detailLabel="Booking start date"
+          detailValue={''}
+        ></Detail>
+        <DateTime dateTimeString={booking.startDate} />
+        <Detail
+          detailLabel="Booking end date"
+          detailValue={''}
+        ></Detail>
+        <DateTime dateTimeString={booking.endDate} />
+        <Detail
+          detailLabel="Location"
+          detailValue={`Latitude ${booking.latitude}, Longitude: ${booking.longitude}`}
+        ></Detail>
+      </div>
       {/*
       <div className="field is-grouped">
         {isEditing ? (
