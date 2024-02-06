@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./CarsTab.css";
 import ListPage from "../components/ListPage";
-import { fetchCarsData  } from '../redux/thunks';
+import { fetchCarsData } from '../redux/thunks';
 
 const CarsTab = () => {
-  
+
   const dispatch = useDispatch();
   const cars = useSelector((state) => state.carsData);
   const jwtToken = useSelector((state) => state.jwttoken);
@@ -48,15 +48,15 @@ const CarsTab = () => {
     setCurrentPage(newPage);
   };
 
-  const listItem = ( item ) => {
+  const listItem = (item) => {
     return (
       <div key={item.id} className="list-element">
         <figure className="image">
           <img src={`data:image/jpeg;base64,${item.img}`} alt={item.info.model}
-          className="is-rounded" style={{height:128}}></img>
+            className="is-rounded" style={{ height: 128 }}></img>
         </figure>
         <Link to={`/home/cars/${item.info.id}`}>
-          <p style={{marginLeft: 10}}>
+          <p style={{ marginLeft: 10 }}>
             {item.info.id} {item.info.make} {item.info.model}
           </p>
         </Link>
@@ -68,15 +68,16 @@ const CarsTab = () => {
     loading ? (
       "Loading..."
     ) : (
-      <ListPage
-        data={currentCars}
-        listItem={listItem}
-        currentPage={currentPage + 1}
-        totalPages={totalPages}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        handlePageChange={handlePageChange}
-      />
+        <ListPage
+          data={currentCars}
+          listItem={listItem}
+          currentPage={currentPage + 1}
+          totalPages={totalPages}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          handlePageChange={handlePageChange}
+          add={true}
+        />
     )
   );
   return (
@@ -101,6 +102,7 @@ const CarsTab = () => {
           </button>
         </div>
       </div>
+
 
       {/* Paged List of Cars */}
       <div>
@@ -135,9 +137,8 @@ const CarsTab = () => {
           {Array.from({ length: totalPages }).map((_, index) => (
             <li key={index}>
               <button
-                className={`pagination-link button ${
-                  currentPage === index + 1 ? "is-current" : ""
-                }`}
+                className={`pagination-link button ${currentPage === index + 1 ? "is-current" : ""
+                  }`}
                 aria-label={`Goto page ${index + 1}`}
                 onClick={() => handlePageChange(index + 1)}
               >

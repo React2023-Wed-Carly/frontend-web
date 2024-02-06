@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import Search from "./Search";
 
@@ -10,6 +11,7 @@ const ListPage = ({
   searchQuery,
   setSearchQuery,
   handlePageChange,
+  add = false
 }) => {
   return (
     <div>
@@ -18,6 +20,14 @@ const ListPage = ({
         setSearchQuery={setSearchQuery}
         handlePageChange={handlePageChange}
       />
+      {add &&
+        <div className="field">
+          <Link to="/home/cars/add">
+          <button className="button is-primary">
+            Add New Car
+          </button>
+          </Link>
+        </div>}
       <div>
         {data.map((item) => (
           listItem(item)

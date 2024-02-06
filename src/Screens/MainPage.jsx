@@ -18,6 +18,7 @@ import CarDetailsPage from '../DetailPages/CarDetailsPage'; // Import the CarDet
 import UserDetailsPage from '../DetailPages/UserDetailsPage';
 import PaymentDetailsPage from '../DetailPages/PaymentDetailsPage';
 import BookingDetailsPage from '../DetailPages/BookingDetailsPage';
+import AddCarPage from '../DetailPages/AddCarPage';
 import 'bulma/css/bulma.min.css';
 import './MainPage.css';
 import data from '../DummyData.json';
@@ -87,6 +88,7 @@ const MainPage = () => {
 									<Route path="/home/users" element={<UsersTab />} />
 									<Route path="/home/bookings" element={<BookingsTab />} />
 									<Route path="/home/payments" element={<PaymentsTab />} />
+									<Route path="/home/cars/add" element={<AddCarPage />} />
 									<Route
 										path="/home/cars/:carId"
 										element={
