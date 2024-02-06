@@ -4,8 +4,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import 'bulma/css/bulma.min.css';
 import './CarDetailsPage.css'; // Import the CSS file
-import {bigintToFloat} from "../utils";
+import { bigintToFloat } from "../utils";
 import { requestDeleteCar } from '../redux/thunks';
+import MapPicker from '../components/MapPicker';
+import 'leaflet/dist/leaflet.css';
+
 
 const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 	const navigate = useNavigate();
@@ -20,6 +23,7 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 	const [newFeature, setNewFeature] = useState('');
 	const [isEditing, setEditing] = useState(false);
 	const [uploadedImage, setUploadedImage] = useState(null);
+	const [selectedLocation, setSelectedLocation] = useState(null);
 
 	const [editedCar, setEditedCar] = useState({
 		brand: car.brand,
@@ -36,39 +40,48 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 		transmission: car.transmission,
 		licensePlateNumber: car.licensePlateNumber,
 		features: car.features.split(','),
-	  });
-	
-	  const assembleJSON = () => {
+	});
+
+	const assembleJSON = () => {
 		const jsonToSave = {
-		  brand: editedCar.brand,
-		  model: editedCar.model,
-		  mileage: editedCar.mileage,
-		  year: editedCar.year,
-		  ownerId: editedCar.ownerId,
-		  dailyPrice: editedCar.dailyPrice,
-		  description: editedCar.description,
-		  latitude: editedCar.latitude,
-		  longitude: editedCar.longitude,
-		  seatingCapacity: editedCar.seatingCapacity,
-		  fuelType: editedCar.fuelType,
-		  transmission: editedCar.transmission,
-		  licensePlateNumber: editedCar.licensePlateNumber,
-		  features: editedCar.features.join(','),
+			brand: editedCar.brand,
+			model: editedCar.model,
+			mileage: editedCar.mileage,
+			year: editedCar.year,
+			ownerId: editedCar.ownerId,
+			dailyPrice: editedCar.dailyPrice,
+			description: editedCar.description,
+			latitude: editedCar.latitude,
+			longitude: editedCar.longitude,
+			seatingCapacity: editedCar.seatingCapacity,
+			fuelType: editedCar.fuelType,
+			transmission: editedCar.transmission,
+			licensePlateNumber: editedCar.licensePlateNumber,
+			features: editedCar.features.join(','),
 		};
-	
+
 		// You can now use 'jsonToSave' as needed (e.g., send it to the server)
 		console.log('Assembled JSON:', jsonToSave);
-	  };
+	};
 
-	  const handleInputChange = (e) => {
+	const handleInputChange = (e) => {
 		const { name, value } = e.target;
-	
+
 		// Update the state using setEditedCar
 		setEditedCar((prevCar) => ({
-		  ...prevCar,
-		  [name]: value,
+			...prevCar,
+			[name]: value,
 		}));
-	  };
+	};
+
+	const handleLocationChange = (location) => {
+        setSelectedLocation(location);
+        setEditedCar((prevCar) => ({
+            ...prevCar,
+            latitude: location.lat,
+            longitude: location.lng,
+        }));
+    };
 
 	const handleEdit = () => {
 		setEditing(true);
@@ -79,33 +92,32 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 		if (uploadedImage) {
 			const reader = new FileReader();
 			reader.onloadend = () => {
-			  const base64Image = reader.result.split(',')[1];
-			  console.log('Uploaded Image in base64:', base64Image);
-			  // TODO: Save the base64Image or use it as needed
+				const base64Image = reader.result.split(',')[1];
+				console.log('Uploaded Image in base64:', base64Image);
+				// TODO: Save the base64Image or use it as needed
 			};
 			reader.readAsDataURL(uploadedImage);
-		  }
+		}
 		assembleJSON();
 		setEditing(false);
 	};
 
 	const handleDelete = () => {
-		try{
+		try {
 			const response = dispatch(requestDeleteCar(jwtToken, carId));
-			if (response.status === 200)
-			{
-			console.log(`${response}`)
+			if (response.status === 200) {
+				console.log(`${response}`)
 				navigate('/main');
 			}
-	  } catch (error) {
-		console.error('Car deletion failed:', error);
-	  }
+		} catch (error) {
+			console.error('Car deletion failed:', error);
+		}
 	};
 
 	const handleFileChange = (e) => {
 		const file = e.target.files[0];
 		setUploadedImage(file);
-	  };
+	};
 
 	// todo
 	const addFeature = () => {
@@ -113,7 +125,8 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 			const updatedFeatures = [...editedCar.features, newFeature];
 			setEditedCar((prevCar) => ({
 				...prevCar,
-				features: updatedFeatures}));
+				features: updatedFeatures
+			}));
 			setNewFeature('');
 		}
 	};
@@ -126,7 +139,7 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 		setEditedCar((prevCar) => ({
 			...prevCar,
 			features: updatedFeatures,
-	}));
+		}));
 	}
 	if (!car) {
 		return <div>Car not found</div>;
@@ -140,25 +153,25 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 				<div className="control">
 					{isEditing ? (
 						<div class="file has-name">
-						<label class="file-label">
-							<input class="file-input" type="file" name="resume" onChange={handleFileChange}/>
-							<span class="file-cta">
-							<span class="file-icon">
-								<i class="fas fa-upload"></i>
-							</span>
-							<span class="file-label">
-								Choose a file…
-							</span>
-							</span>
-							<span class="file-name">
-							{uploadedImage ? uploadedImage.name : ""}
-							</span>
-						</label>
+							<label class="file-label">
+								<input class="file-input" type="file" name="resume" onChange={handleFileChange} />
+								<span class="file-cta">
+									<span class="file-icon">
+										<i class="fas fa-upload"></i>
+									</span>
+									<span class="file-label">
+										Choose a file…
+									</span>
+								</span>
+								<span class="file-name">
+									{uploadedImage ? uploadedImage.name : ""}
+								</span>
+							</label>
 						</div>
 					) : (
 						<span>
 							<img src={`data:image/jpeg;base64,${imageString}`} alt={car.model}
-							style={{height: 360}}/>
+								style={{ height: 360 }} />
 						</span>
 					)}
 				</div>
@@ -260,7 +273,7 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 							onChange={handleInputChange}
 						/>
 					) : (
-						
+
 						<span>${bigintToFloat(car.dailyPrice)}</span>
 					)}
 				</div>
@@ -270,23 +283,13 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 				<label className="label">Location:</label>
 				<div className="control">
 					{isEditing ? (
-						<div>
-							<label>Latitude:</label>
-							<input
-								className="input"
-								type="number"
-								name="latitude"
-								value={editedCar.latitude}
-								onChange={handleInputChange}
-							/>
-							<label>Longitude:</label>
-							<input
-								className="input"
-								type="number"
-								name="longitude"
-								value={editedCar.longitude}
-								onChange={handleInputChange}
-							/>
+						<div className="MapPicker-container">
+							<MapPicker onLocationChange={handleLocationChange} />
+							{selectedLocation && (
+								<div>
+									Latitude: {selectedLocation.lat}, Longitude: {selectedLocation.lng}
+								</div>
+							)}
 						</div>
 					) : (
 						<span>
@@ -382,7 +385,7 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 											setEditedCar((prevCar) => ({
 												...prevCar,
 												features: updatedFeatures,
-											  }));
+											}));
 										}}
 									/>
 									<button

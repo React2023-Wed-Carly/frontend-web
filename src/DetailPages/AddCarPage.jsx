@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import 'bulma/css/bulma.min.css';
 import './CarDetailsPage.css'; // Import the CSS file
+import MapPicker from '../components/MapPicker';
+import 'leaflet/dist/leaflet.css';
 
 
 const AddCarPage = () => {
@@ -16,18 +18,19 @@ const AddCarPage = () => {
     // const features = car.features.split(',');
     const [newFeature, setNewFeature] = useState('');
     const [uploadedImage, setUploadedImage] = useState(null);
+    const [selectedLocation, setSelectedLocation] = useState(null);
 
     const [editedCar, setEditedCar] = useState({
         brand: '',
         model: '',
         mileage: '',
-        year: null,
+        year: 0,
         ownerId: '',
         dailyPrice: '',
         description: '',
-        latitude: null,
-        longitude: null,
-        seatingCapacity: null,
+        latitude: 0,
+        longitude: 0,
+        seatingCapacity: 0,
         fuelType: '',
         transmission: '',
         licensePlateNumber: '',
@@ -54,6 +57,16 @@ const AddCarPage = () => {
 
         // You can now use 'jsonToSave' as needed (e.g., send it to the server)
         console.log('Assembled JSON:', jsonToSave);
+    };
+
+    const handleLocationChange = (location) => {
+        setSelectedLocation(location);
+        console.log(selectedLocation);
+        setEditedCar((prevCar) => ({
+            ...prevCar,
+            latitude: location.lat,
+            longitude: location.lng,
+        }));
     };
 
     const handleInputChange = (e) => {
@@ -111,7 +124,7 @@ const AddCarPage = () => {
     }
 
     return (
-        <div className="rows">
+        <div className="column is-half">
             <h2 className="title is-4">Add new car</h2>
             <div className="field">
                 <label className="label">Photo:</label>
@@ -224,28 +237,15 @@ const AddCarPage = () => {
 
             <div className="field">
                 <label className="label">Location:</label>
-                <div className="control">
-
-                    <div>
-                        <label>Latitude:</label>
-                        <input
-                            className="input"
-                            type="number"
-                            name="latitude"
-                            value={editedCar.latitude}
-                            onChange={handleInputChange}
-                        />
-                        <label>Longitude:</label>
-                        <input
-                            className="input"
-                            type="number"
-                            name="longitude"
-                            value={editedCar.longitude}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
+                <div className="MapPicker-container">
+                    <MapPicker onLocationChange={handleLocationChange} />
+                    {selectedLocation && (
+                        <div>
+                            Latitude: {selectedLocation.lat}, Longitude: {selectedLocation.lng}
+                        </div>
+                    )}
                 </div>
+
             </div>
 
             <div className="field">
