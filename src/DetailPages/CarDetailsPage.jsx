@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import 'bulma/css/bulma.min.css';
 import './CarDetailsPage.css'; // Import the CSS file
 import { bigintToFloat } from "../utils";
-import { requestDeleteCar } from '../redux/thunks';
+import { requestDeleteCar, updateCarImage, requestUpdateCar } from '../redux/thunks';
 import MapPicker from '../components/MapPicker';
 import 'leaflet/dist/leaflet.css';
+import MapViewer from '../components/MapViewer';
 
 
 const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
@@ -16,9 +17,9 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 	const cars = useSelector((state) => state.carsData);
 	const jwtToken = useSelector((state) => state.jwttoken);
 	const { carId } = useParams();
-	const carAll = cars.find((car) => car.info.id === parseInt(carId));
-	const imageString = carAll.img;
-	const car = carAll.info;
+	let carAll = cars.find((car) => car.info.id === parseInt(carId));
+	let imageString = carAll.img;
+	let car = carAll.info;
 	const features = car.features.split(',');
 	const [newFeature, setNewFeature] = useState('');
 	const [isEditing, setEditing] = useState(false);
@@ -46,28 +47,25 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 		const jsonToSave = {
 			brand: editedCar.brand,
 			model: editedCar.model,
-			mileage: editedCar.mileage,
-			year: editedCar.year,
-			ownerId: editedCar.ownerId,
-			dailyPrice: editedCar.dailyPrice,
+			mileage: parseInt(editedCar.mileage),
+			year: parseInt(editedCar.year),
+			ownerId: parseInt(editedCar.ownerId),
+			dailyPrice: parseInt(editedCar.dailyPrice),
 			description: editedCar.description,
 			latitude: editedCar.latitude,
 			longitude: editedCar.longitude,
-			seatingCapacity: editedCar.seatingCapacity,
+			seatingCapacity: parseInt(editedCar.seatingCapacity),
 			fuelType: editedCar.fuelType,
 			transmission: editedCar.transmission,
 			licensePlateNumber: editedCar.licensePlateNumber,
 			features: editedCar.features.join(','),
+			photo: null,
 		};
-
-		// You can now use 'jsonToSave' as needed (e.g., send it to the server)
-		console.log('Assembled JSON:', jsonToSave);
+		return jsonToSave;
 	};
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
-
-		// Update the state using setEditedCar
 		setEditedCar((prevCar) => ({
 			...prevCar,
 			[name]: value,
@@ -87,26 +85,28 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 		setEditing(true);
 	};
 
-	const handleSave = () => {
+	const handleSave = async() => {
 		// todo
+		const body = assembleJSON();
+        const response = await dispatch(requestUpdateCar(jwtToken, carId, body));
 		if (uploadedImage) {
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				const base64Image = reader.result.split(',')[1];
-				console.log('Uploaded Image in base64:', base64Image);
-				// TODO: Save the base64Image or use it as needed
-			};
-			reader.readAsDataURL(uploadedImage);
+			const formData = new FormData();
+			formData.append('file', uploadedImage);
+			await dispatch(updateCarImage(jwtToken, carId, formData));
 		}
-		assembleJSON();
+		if (response && response.status >= 200 && response.status < 300) {
+			carAll = response.data;
+			car = editedCar;
+			imageString = carAll.img;
+		}
 		setEditing(false);
+		navigate('/home/cars');
 	};
 
-	const handleDelete = () => {
+	const handleDelete = async() => {
 		try {
-			const response = dispatch(requestDeleteCar(jwtToken, carId));
+			const response = await dispatch(requestDeleteCar(jwtToken, carId));
 			if (response.status === 200) {
-				console.log(`${response}`)
 				navigate('/main');
 			}
 		} catch (error) {
@@ -293,6 +293,7 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 						</div>
 					) : (
 						<span>
+							<MapViewer center={[car.latitude, car.longitude]}/>
 							Latitude: {car.latitude}, Longitude:{' '}
 							{car.latitude}
 						</span>

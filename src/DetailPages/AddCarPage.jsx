@@ -5,7 +5,7 @@ import 'bulma/css/bulma.min.css';
 import './CarDetailsPage.css'; // Import the CSS file
 import MapPicker from '../components/MapPicker';
 import 'leaflet/dist/leaflet.css';
-
+import { requestCreateCar, updateCarImage } from '../redux/thunks';
 
 const AddCarPage = () => {
     const navigate = useNavigate();
@@ -41,22 +41,21 @@ const AddCarPage = () => {
         const jsonToSave = {
             brand: editedCar.brand,
             model: editedCar.model,
-            mileage: editedCar.mileage,
-            year: editedCar.year,
-            ownerId: editedCar.ownerId,
-            dailyPrice: editedCar.dailyPrice,
+            mileage: parseInt(editedCar.mileage),
+            year: parseInt(editedCar.year),
+            ownerId: parseInt(editedCar.ownerId),
+            dailyPrice: parseInt(editedCar.dailyPrice),
             description: editedCar.description,
             latitude: editedCar.latitude,
             longitude: editedCar.longitude,
-            seatingCapacity: editedCar.seatingCapacity,
+            seatingCapacity: parseInt(editedCar.seatingCapacity),
             fuelType: editedCar.fuelType,
             transmission: editedCar.transmission,
             licensePlateNumber: editedCar.licensePlateNumber,
             features: editedCar.features.join(','),
+            photo: null,
         };
-
-        // You can now use 'jsonToSave' as needed (e.g., send it to the server)
-        console.log('Assembled JSON:', jsonToSave);
+        return jsonToSave;
     };
 
     const handleLocationChange = (location) => {
@@ -80,18 +79,22 @@ const AddCarPage = () => {
     };
 
 
-    const handleSave = () => {
+    const handleSave = async() =>  {
         // todo
-        if (uploadedImage) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const base64Image = reader.result.split(',')[1];
-                console.log('Uploaded Image in base64:', base64Image);
-                // TODO: Save the base64Image or use it as needed
-            };
-            reader.readAsDataURL(uploadedImage);
+        const body = assembleJSON();
+        const response = await dispatch(requestCreateCar(jwtToken, body));
+        console.log(response)
+        if (response && response.status >= 200 && response.status < 300) {
+            console.log(`Car created successfully!`);
+            const carId = response.data.id;
+            console.log("car ID:", carId);
+            if (uploadedImage) {
+                const formData = new FormData();
+                formData.append('file', uploadedImage);
+                await dispatch(updateCarImage(jwtToken, carId, formData));
+            }
         }
-        assembleJSON();
+        navigate('/home/cars');
     };
 
 

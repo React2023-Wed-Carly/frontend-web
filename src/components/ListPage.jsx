@@ -24,7 +24,7 @@ const ListPage = ({
         <div className="field">
           <Link to="/home/cars/add">
           <button className="button is-primary">
-            Add New Car
+            Add
           </button>
           </Link>
         </div>}
