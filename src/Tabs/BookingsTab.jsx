@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ListPage from "../components/ListPage";
 import { fetchBookingsData  } from '../redux/thunks';
 import { useDispatch, useSelector } from "react-redux";
+import { requestCancelBooking } from "../redux/thunks";
 
 const BookingsTab = () => {
   const dispatch = useDispatch();
@@ -42,11 +43,21 @@ const BookingsTab = () => {
   };
 
   const listItem = (item) => {
+    const handleDelete = async (id) => {
+      try {
+        await dispatch(requestCancelBooking(jwtToken, id));
+        // After deleting, you may want to refetch the data
+        await dispatch(fetchBookingsData(jwtToken, currentPage));
+      } catch (error) {
+        console.error("Error deleting booking:", error);
+      }
+    };
     return (
       <div key={item.id} className="list-element">
         <Link to={`/home/bookings/${item.id}`}>
           <p>{item.id} {item.startDate}</p>
         </Link>
+        <button className="button is-danger" onClick={() => handleDelete(item.id)}>Cancel</button>
       </div>
     );
   };

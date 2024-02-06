@@ -1,5 +1,5 @@
 import {LOGOUT_USER, SET_USER_DATA, LOGIN_SUCCESS, SET_CARS_DATA, 
-    SET_BOOKINGS_DATA, SET_PAYMENTS_DATA, DELETE_CAR} from "./actions";
+    SET_BOOKINGS_DATA, SET_PAYMENTS_DATA, DELETE_CAR, CANCEL_BOOKING} from "./actions";
 
 const initialState = {
     isLoggedIn: false,
@@ -54,6 +54,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 carsData: updatedCarsData,
               };
+        case CANCEL_BOOKING:
+        const updatedBookingsData = state.bookingsData.filter(booking => booking.id !== action.payload);
+        return {
+            ...state,
+            bookingsData: updatedBookingsData,
+            };
         default:
             return state;
     }

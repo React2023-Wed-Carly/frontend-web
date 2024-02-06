@@ -1,4 +1,5 @@
-import { loginSuccess, setUserData, setCarsData, setBookingsData, setPaymentsData, deleteCar } from "./actions";
+import { loginSuccess, setUserData, setCarsData, setBookingsData, 
+  setPaymentsData, deleteCar, cancelBooking } from "./actions";
 import axios from 'axios';
 
 const URL = 'https://wedcarly.azurewebsites.net';
@@ -133,5 +134,20 @@ export const loginUser = (username, password) => async (dispatch) => {
       return response;
 		  } catch (error) {
 			console.error('Error deleting car:', error);
+		};
+  }
+
+  export const requestCancelBooking = (jwtToken, bookingId) => async (dispatch) => {
+    try {
+			const response = await axios.delete(`${URL}/manage/bookings/${bookingId}`, {
+        headers: {
+            Authorization: `Bearer ${jwtToken}`
+        },
+      });
+      dispatch(cancelBooking(bookingId));
+			console.log(`Booking with ID ${bookingId} canceled successfully!`);
+      return response;
+		  } catch (error) {
+			console.error('Error cancelling booking: ', error);
 		};
   }
