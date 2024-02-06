@@ -30,6 +30,7 @@ const LoginPage = () => {
 		<div className="container has-text-centered">
 			<div className="column is-4">
 				<h2 className="title is-1">Carly</h2>
+				<h2 className="title is-4">Administrator Panel</h2>
 				<form>
 					<div className="field">
 						<label className="label">Username</label>

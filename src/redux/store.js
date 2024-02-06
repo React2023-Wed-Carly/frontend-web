@@ -3,10 +3,11 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {thunk} from 'redux-thunk';
 import rootReducer from "./reducers";
+import localforage from 'localforage';
 
 const persistConfig = {
 	key: 'root', // key for the localStorage key
-	storage, 
+	storage: localforage, 
   };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

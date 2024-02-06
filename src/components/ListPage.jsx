@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import Search from "./Search";
+import '../Screens/MainPage.css';
+
 
 const ListPage = ({
   data,
@@ -11,19 +13,21 @@ const ListPage = ({
   searchQuery,
   setSearchQuery,
   handlePageChange,
-  add = false
+  add = false,
+  searchable = false
 }) => {
   return (
     <div>
+      {searchable &&
       <Search
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         handlePageChange={handlePageChange}
-      />
+      />}
       {add &&
         <div className="field">
           <Link to="/home/cars/add">
-          <button className="button is-primary">
+          <button className="button is-carly is-fullwidth">
             Add
           </button>
           </Link>

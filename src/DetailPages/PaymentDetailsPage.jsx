@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import "bulma/css/bulma.min.css";
 import "./UserDetailsPage.css";
 import Detail from "../components/Detail";
-import {bigintToFloat} from "../utils";
+import {DateTime, bigintToFloat} from "../utils";
 
 const PaymentDetailsPage = () => {
   const payments = useSelector((state) => state.paymentsData);
@@ -27,8 +27,10 @@ const PaymentDetailsPage = () => {
       ></Detail>
       <Detail
         detailLabel="Date"
-        detailValue={payment.date}
+        detailValue={""}
       ></Detail>
+      <DateTime dateTimeString={payment.date}/>
+      {"\n"}
       <Detail
         detailLabel="Amount"
         detailValue={`$${bigintToFloat(payment.amount)}`}

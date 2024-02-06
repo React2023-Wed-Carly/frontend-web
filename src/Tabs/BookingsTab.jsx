@@ -5,6 +5,8 @@ import ListPage from "../components/ListPage";
 import { fetchBookingsData  } from '../redux/thunks';
 import { useDispatch, useSelector } from "react-redux";
 import { requestCancelBooking } from "../redux/thunks";
+import { DateTime } from "../utils";
+import "./CarsTab.css";
 
 const BookingsTab = () => {
   const dispatch = useDispatch();
@@ -55,9 +57,9 @@ const BookingsTab = () => {
     return (
       <div key={item.id} className="list-element">
         <Link to={`/home/bookings/${item.id}`}>
-          <p>{item.id} {item.startDate}</p>
+        <DateTime dateTimeString={item.startDate} />
         </Link>
-        <button className="button is-danger" onClick={() => handleDelete(item.id)}>Cancel</button>
+        <button className="button is-danger is-small" onClick={() => handleDelete(item.id)}>Cancel</button>
       </div>
     );
   };

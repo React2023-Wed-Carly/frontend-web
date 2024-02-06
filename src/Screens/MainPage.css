@@ -24,7 +24,7 @@
 }
 
 .menu-list a {
-	padding: 10px 20px;
+	padding: 0px 20px;
 	display: block;
 	color: #555;
 }
@@ -65,4 +65,13 @@
 	padding: 20px; /* Add padding to the content */
 	height: 100vh; /* Set the full height of the viewport for the content */
 	overflow-y: auto; /* Allow vertical scrolling for the content */
+}
+
+.is-carly {
+	background-color: #F8DC49;
+}
+
+.list-name {
+	margin-left: 10; 
+	font-size: 24;
 }

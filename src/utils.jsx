@@ -1,5 +1,6 @@
 export const bigintToFloat = (bigInt) => {
-  return `${bigInt / 100}.${bigInt % 100}`
+  const dollars = bigInt / 100;
+  return dollars;
 }
 
 export const DateTime = ({ dateTimeString }) => {
@@ -46,3 +47,33 @@ export const DateTime = ({ dateTimeString }) => {
     </div>
   );
 };
+
+export const Nickname = ({ username }) => {
+  return (
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-user"></i>
+      </span>
+      <span >{username}</span>
+    </span>
+  );
+}
+
+export const Payment = ({ userId, amount }) => {
+  return (
+    <div>
+      <span class="icon-text">
+        <span class="icon">
+          <i class="fas fa-user"></i>
+        </span>
+        <span >{`${userId} `}</span>
+      </span>
+      <span class="icon-text">
+        <span class="icon">
+          <i style={{paddingLeft: 20}} class="fas fa-money-bill"></i>
+        </span>
+        <span style={{paddingLeft: 10}}>${amount}</span>
+      </span>
+    </div>
+  );
+}

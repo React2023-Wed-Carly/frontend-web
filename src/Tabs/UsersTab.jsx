@@ -5,6 +5,7 @@ import "./UsersTab.css";
 import ListPage from "../components/ListPage";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData  } from '../redux/thunks';
+import { Nickname } from "../utils";
 
 const UsersTab = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const UsersTab = () => {
     return (
       <div key={item.id} className="list-element">
         <Link to={`/home/users/${item.id}`}>
-          <p>{item.id} {item.firstName} {item.lastName}</p>
+          <Nickname  username={item.username}/>
         </Link>
       </div>
     );
@@ -62,6 +63,7 @@ const UsersTab = () => {
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
       handlePageChange={handlePageChange}
+      searchable={true}
     /> 
   );
 };

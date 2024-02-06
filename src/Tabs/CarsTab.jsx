@@ -56,8 +56,8 @@ const CarsTab = () => {
             className="is-rounded" style={{ height: 128 }}></img>
         </figure>
         <Link to={`/home/cars/${item.info.id}`}>
-          <p style={{ marginLeft: 10 }}>
-            {item.info.id} {item.info.make} {item.info.model}
+          <p style={{ marginLeft: 10, fontSize: 24 }}>
+             {item.info.brand} {item.info.model}
           </p>
         </Link>
       </div>
