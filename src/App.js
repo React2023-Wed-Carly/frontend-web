@@ -1,11 +1,17 @@
-import logo from './logo.svg';
 import MainPage from './Screens/MainPage';
+import { PersistGate } from 'redux-persist/integration/react';
+import {store, persistor} from "./redux/store";
+import { Provider } from "react-redux";
 
 function App() {
 	return (
-		<div className="App">
-			<MainPage />
-		</div>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+			<div className="App">
+				<MainPage />
+			</div>
+			</PersistGate>
+		</Provider>
 	);
 }
 

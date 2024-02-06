@@ -7,6 +7,7 @@ import {
 	Link,
 	Navigate,
 	NavLink,
+	useNavigate,
 } from 'react-router-dom';
 import CarsTab from '../Tabs/CarsTab';
 import UsersTab from '../Tabs/UsersTab';
@@ -15,20 +16,25 @@ import PaymentsTab from '../Tabs/PaymentsTab';
 import LoginPage from './LoginPage';
 import CarDetailsPage from '../DetailPages/CarDetailsPage'; // Import the CarDetailsPage
 import UserDetailsPage from '../DetailPages/UserDetailsPage';
+import PaymentDetailsPage from '../DetailPages/PaymentDetailsPage';
+import BookingDetailsPage from '../DetailPages/BookingDetailsPage';
+import AddCarPage from '../DetailPages/AddCarPage';
 import 'bulma/css/bulma.min.css';
 import './MainPage.css';
 import data from '../DummyData.json';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../redux/actions';
 
 const MainPage = () => {
-	const [isLoggedIn, setLoggedIn] = useState(false);
-
-	const handleLogin = () => {
-		setLoggedIn(true);
-	};
-
+	const dispatch = useDispatch();
+	const isLoggedIn = useSelector((state) => state.isLoggedIn);
+	//const navigate = useNavigate();
+	
 	const handleLogout = () => {
-		setLoggedIn(false);
+	// Dispatch the logoutUser action to reset authentication state
+	dispatch(logoutUser());
 	};
+	
 
 	return (
 		<Router>
@@ -78,48 +84,33 @@ const MainPage = () => {
 						<div className="column">
 							<div className="tab-content">
 								<Routes>
-									<Route path="/home/cars" element={<CarsTab />} />
+									<Route path="/home/cars" element={<CarsTab/>} />
 									<Route path="/home/users" element={<UsersTab />} />
 									<Route path="/home/bookings" element={<BookingsTab />} />
 									<Route path="/home/payments" element={<PaymentsTab />} />
+									<Route path="/home/cars/add" element={<AddCarPage />} />
 									<Route
 										path="/home/cars/:carId"
 										element={
-											<CarDetailsPage
-												cars={data.cars}
-												onDeleteCar={() => {}}
-												onUpdateCar={() => {}}
-											/>
+											<CarDetailsPage/>
 										}
 									/>
 									<Route
 										path="/home/users/:userId"
 										element={
-											<UserDetailsPage
-												users={data.users}
-												onDeleteUser={() => {}}
-												onUpdateUser={() => {}}
-											/>
+											<UserDetailsPage/>
 										}
 									/>
 									<Route
 										path="/home/bookings/:bookingId"
 										element={
-											<UserDetailsPage
-												bookings={data.reservations}
-												onDeleteUser={() => {}}
-												onUpdateUser={() => {}}
-											/>
+											<BookingDetailsPage/>
 										}
 									/>
 									<Route
 										path="/home/payments/:paymentId"
 										element={
-											<UserDetailsPage
-												payments={data.payments}
-												onDeleteUser={() => {}}
-												onUpdateUser={() => {}}
-											/>
+											<PaymentDetailsPage/>
 										}
 									/>
 									{/* Add a default route for /main that redirects to /home/cars */}
@@ -130,7 +121,7 @@ const MainPage = () => {
 					</div>
 				) : (
 					<div className="column">
-						<LoginPage onLogin={handleLogin} />
+						<LoginPage/>
 					</div>
 				)}
 

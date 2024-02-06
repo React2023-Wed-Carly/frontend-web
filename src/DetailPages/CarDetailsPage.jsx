@@ -1,44 +1,146 @@
 // CarDetailsPage.jsx
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import 'bulma/css/bulma.min.css';
 import './CarDetailsPage.css'; // Import the CSS file
+import { bigintToFloat } from "../utils";
+import { requestDeleteCar, updateCarImage, requestUpdateCar } from '../redux/thunks';
+import MapPicker from '../components/MapPicker';
+import 'leaflet/dist/leaflet.css';
+import MapViewer from '../components/MapViewer';
 
-const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
+
+const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const cars = useSelector((state) => state.carsData);
+	const jwtToken = useSelector((state) => state.jwttoken);
 	const { carId } = useParams();
-	const car = cars.find((car) => car.id === parseInt(carId));
+	let carAll = cars.find((car) => car.info.id === parseInt(carId));
+	let imageString = carAll.img;
+	let car = carAll.info;
+	const features = car.features.split(',');
 	const [newFeature, setNewFeature] = useState('');
 	const [isEditing, setEditing] = useState(false);
+	const [uploadedImage, setUploadedImage] = useState(null);
+	const [selectedLocation, setSelectedLocation] = useState(null);
+
+	const [editedCar, setEditedCar] = useState({
+		brand: car.brand,
+		model: car.model,
+		mileage: car.mileage,
+		year: car.year,
+		ownerId: car.ownerId,
+		dailyPrice: car.dailyPrice,
+		description: car.description,
+		latitude: car.latitude,
+		longitude: car.longitude,
+		seatingCapacity: car.seatingCapacity,
+		fuelType: car.fuelType,
+		transmission: car.transmission,
+		licensePlateNumber: car.licensePlateNumber,
+		features: car.features.split(','),
+	});
+
+	const assembleJSON = () => {
+		const jsonToSave = {
+			brand: editedCar.brand,
+			model: editedCar.model,
+			mileage: parseInt(editedCar.mileage),
+			year: parseInt(editedCar.year),
+			ownerId: parseInt(editedCar.ownerId),
+			dailyPrice: parseInt(editedCar.dailyPrice),
+			description: editedCar.description,
+			latitude: editedCar.latitude,
+			longitude: editedCar.longitude,
+			seatingCapacity: parseInt(editedCar.seatingCapacity),
+			fuelType: editedCar.fuelType,
+			transmission: editedCar.transmission,
+			licensePlateNumber: editedCar.licensePlateNumber,
+			features: editedCar.features.join(','),
+			photo: null,
+		};
+		return jsonToSave;
+	};
+
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setEditedCar((prevCar) => ({
+			...prevCar,
+			[name]: value,
+		}));
+	};
+
+	const handleLocationChange = (location) => {
+        setSelectedLocation(location);
+        setEditedCar((prevCar) => ({
+            ...prevCar,
+            latitude: location.lat,
+            longitude: location.lng,
+        }));
+    };
 
 	const handleEdit = () => {
 		setEditing(true);
 	};
 
-	const handleSave = () => {
+	const handleSave = async() => {
 		// todo
+		const body = assembleJSON();
+        const response = await dispatch(requestUpdateCar(jwtToken, carId, body));
+		if (uploadedImage) {
+			const formData = new FormData();
+			formData.append('file', uploadedImage);
+			await dispatch(updateCarImage(jwtToken, carId, formData));
+		}
+		if (response && response.status >= 200 && response.status < 300) {
+			carAll = response.data;
+			car = editedCar;
+			imageString = carAll.img;
+		}
 		setEditing(false);
+		navigate('/home/cars');
 	};
 
-	const handleDelete = () => {
-		// todo
+	const handleDelete = async() => {
+		try {
+			const response = await dispatch(requestDeleteCar(jwtToken, carId));
+			if (response.status === 200) {
+				navigate('/main');
+			}
+		} catch (error) {
+			console.error('Car deletion failed:', error);
+		}
+	};
+
+	const handleFileChange = (e) => {
+		const file = e.target.files[0];
+		setUploadedImage(file);
 	};
 
 	// todo
 	const addFeature = () => {
 		if (newFeature.trim() !== '') {
-			const updatedFeatures = [...car.features, newFeature];
-			onUpdateCar(car.id, { features: updatedFeatures });
+			const updatedFeatures = [...editedCar.features, newFeature];
+			setEditedCar((prevCar) => ({
+				...prevCar,
+				features: updatedFeatures
+			}));
 			setNewFeature('');
 		}
 	};
 
 	// todo
 	const deleteFeature = (index) => {
-		const updatedFeatures = [...car.features];
+		const updatedFeatures = [...editedCar.features];
 		updatedFeatures.splice(index, 1);
-		onUpdateCar(car.id, { features: updatedFeatures });
-	};
-
+		console.log(updatedFeatures);
+		setEditedCar((prevCar) => ({
+			...prevCar,
+			features: updatedFeatures,
+		}));
+	}
 	if (!car) {
 		return <div>Car not found</div>;
 	}
@@ -46,35 +148,48 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 	return (
 		<div className="rows">
 			<h2 className="title is-4">Details of car {car.id}</h2>
-
 			<div className="field">
-				<label className="label">Owner:</label>
+				<label className="label">Photo:</label>
 				<div className="control">
 					{isEditing ? (
-						<input
-							className="input"
-							type="text"
-							value={car.owner}
-							onChange={(e) => onUpdateCar(car.id, { owner: e.target.value })}
-						/>
+						<div class="file has-name">
+							<label class="file-label">
+								<input class="file-input" type="file" name="resume" onChange={handleFileChange} />
+								<span class="file-cta">
+									<span class="file-icon">
+										<i class="fas fa-upload"></i>
+									</span>
+									<span class="file-label">
+										Choose a file…
+									</span>
+								</span>
+								<span class="file-name">
+									{uploadedImage ? uploadedImage.name : ""}
+								</span>
+							</label>
+						</div>
 					) : (
-						<span>{car.owner}</span>
+						<span>
+							<img src={`data:image/jpeg;base64,${imageString}`} alt={car.model}
+								style={{ height: 360 }} />
+						</span>
 					)}
 				</div>
 			</div>
 
 			<div className="field">
-				<label className="label">Photo:</label>
+				<label className="label">Owner ID:</label>
 				<div className="control">
 					{isEditing ? (
 						<input
 							className="input"
 							type="text"
-							value={car.photo}
-							onChange={(e) => onUpdateCar(car.id, { photo: e.target.value })}
+							name="ownerId"
+							value={editedCar.ownerId}
+							onChange={handleInputChange}
 						/>
 					) : (
-						<span>{car.photo}</span>
+						<span>{car.ownerId}</span>
 					)}
 				</div>
 			</div>
@@ -86,8 +201,9 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 						<input
 							className="input"
 							type="text"
-							value={car.brand}
-							onChange={(e) => onUpdateCar(car.id, { brand: e.target.value })}
+							name="brand"
+							value={editedCar.brand}
+							onChange={handleInputChange}
 						/>
 					) : (
 						<span>{car.brand}</span>
@@ -102,8 +218,9 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 						<input
 							className="input"
 							type="text"
-							value={car.model}
-							onChange={(e) => onUpdateCar(car.id, { model: e.target.value })}
+							name="model"
+							value={editedCar.model}
+							onChange={handleInputChange}
 						/>
 					) : (
 						<span>{car.model}</span>
@@ -118,10 +235,9 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 						<input
 							className="input"
 							type="number"
-							value={car.year}
-							onChange={(e) =>
-								onUpdateCar(car.id, { year: parseInt(e.target.value, 10) })
-							}
+							name="year"
+							value={editedCar.year}
+							onChange={handleInputChange}
 						/>
 					) : (
 						<span>{car.year}</span>
@@ -135,10 +251,9 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 					{isEditing ? (
 						<textarea
 							className="textarea"
-							value={car.description}
-							onChange={(e) =>
-								onUpdateCar(car.id, { description: e.target.value })
-							}
+							name="description"
+							value={editedCar.description}
+							onChange={handleInputChange}
 						/>
 					) : (
 						<span>{car.description}</span>
@@ -153,13 +268,13 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 						<input
 							className="input"
 							type="number"
-							value={car.dailyPrice}
-							onChange={(e) =>
-								onUpdateCar(car.id, { dailyPrice: parseFloat(e.target.value) })
-							}
+							name="dailyPrice"
+							value={editedCar.dailyPrice}
+							onChange={handleInputChange}
 						/>
 					) : (
-						<span>{car.dailyPrice}</span>
+
+						<span>${bigintToFloat(car.dailyPrice)}</span>
 					)}
 				</div>
 			</div>
@@ -168,40 +283,19 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 				<label className="label">Location:</label>
 				<div className="control">
 					{isEditing ? (
-						<div>
-							<label>Latitude:</label>
-							<input
-								className="input"
-								type="number"
-								value={car.location.latitude}
-								onChange={(e) =>
-									onUpdateCar(car.id, {
-										location: {
-											...car.location,
-											latitude: parseFloat(e.target.value),
-										},
-									})
-								}
-							/>
-							<label>Longitude:</label>
-							<input
-								className="input"
-								type="number"
-								value={car.location.longitude}
-								onChange={(e) =>
-									onUpdateCar(car.id, {
-										location: {
-											...car.location,
-											longitude: parseFloat(e.target.value),
-										},
-									})
-								}
-							/>
+						<div className="MapPicker-container">
+							<MapPicker onLocationChange={handleLocationChange} />
+							{selectedLocation && (
+								<div>
+									Latitude: {selectedLocation.lat}, Longitude: {selectedLocation.lng}
+								</div>
+							)}
 						</div>
 					) : (
 						<span>
-							Latitude: {car.location.latitude}, Longitude:{' '}
-							{car.location.longitude}
+							<MapViewer center={[car.latitude, car.longitude]}/>
+							Latitude: {car.latitude}, Longitude:{' '}
+							{car.latitude}
 						</span>
 					)}
 				</div>
@@ -214,10 +308,9 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 						<input
 							className="input"
 							type="text"
-							value={car.fuelType}
-							onChange={(e) =>
-								onUpdateCar(car.id, { fuelType: e.target.value })
-							}
+							name="fuelType"
+							value={editedCar.fuelType}
+							onChange={handleInputChange}
 						/>
 					) : (
 						<span>{car.fuelType}</span>
@@ -232,10 +325,9 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 						<input
 							className="input"
 							type="text"
-							value={car.transmission}
-							onChange={(e) =>
-								onUpdateCar(car.id, { transmission: e.target.value })
-							}
+							name="transmission"
+							value={editedCar.transmission}
+							onChange={handleInputChange}
 						/>
 					) : (
 						<span>{car.transmission}</span>
@@ -250,12 +342,9 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 						<input
 							className="input"
 							type="number"
-							value={car.seatingCapacity}
-							onChange={(e) =>
-								onUpdateCar(car.id, {
-									seatingCapacity: parseInt(e.target.value, 10),
-								})
-							}
+							name="seatingCapacity"
+							value={editedCar.seatingCapacity}
+							onChange={handleInputChange}
 						/>
 					) : (
 						<span>{car.seatingCapacity}</span>
@@ -270,13 +359,12 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 						<input
 							className="input"
 							type="number"
-							value={car.mileage}
-							onChange={(e) =>
-								onUpdateCar(car.id, { mileage: parseInt(e.target.value, 10) })
-							}
+							name="mileage"
+							value={editedCar.mileage}
+							onChange={handleInputChange}
 						/>
 					) : (
-						<span>{car.mileage}</span>
+						<span>{car.mileage} km</span>
 					)}
 				</div>
 			</div>
@@ -286,16 +374,19 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 				<div className="control">
 					{isEditing ? (
 						<div>
-							{car.features.map((feature, index) => (
+							{editedCar.features.map((feature, index) => (
 								<div key={index} className="feature-edit">
 									<input
 										className="input"
 										type="text"
 										value={feature}
 										onChange={(e) => {
-											const updatedFeatures = [...car.features];
+											const updatedFeatures = [...editedCar.features];
 											updatedFeatures[index] = e.target.value;
-											onUpdateCar(car.id, { features: updatedFeatures });
+											setEditedCar((prevCar) => ({
+												...prevCar,
+												features: updatedFeatures,
+											}));
 										}}
 									/>
 									<button
@@ -323,7 +414,7 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 							</div>
 						</div>
 					) : (
-						<span>{car.features.join(', ')}</span>
+						<span>{features.join(', ')}</span>
 					)}
 				</div>
 			</div>
@@ -335,10 +426,9 @@ const CarDetailsPage = ({ cars, onUpdateCar, onDeleteCar }) => {
 						<input
 							className="input"
 							type="text"
-							value={car.licensePlateNumber}
-							onChange={(e) =>
-								onUpdateCar(car.id, { licensePlateNumber: e.target.value })
-							}
+							name="licensePlateNumber"
+							value={editedCar.licensePlateNumber}
+							onChange={handleInputChange}
 						/>
 					) : (
 						<span>{car.licensePlateNumber}</span>
