@@ -1,6 +1,4 @@
-/* CarsTab.css */
 
-/* Style for the search bar and button */
 .field.has-addons {
 	margin-bottom: 1em;
 }
@@ -11,7 +9,6 @@
 	width: 100px;
 }
 
-/* Style for the paged list of cars */
 .list-element {
 	display: flex;
 	margin: 0;
@@ -27,7 +24,6 @@
 	border: none;
 }
 
-/* Style for pagination */
 .pagination {
 	margin-top: 1em;
 }

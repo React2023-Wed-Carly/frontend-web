@@ -1,4 +1,3 @@
-// MainPage.jsx
 import React from 'react';
 import {
 	BrowserRouter as Router,
@@ -13,7 +12,7 @@ import UsersTab from '../Tabs/UsersTab';
 import BookingsTab from '../Tabs/BookingsTab';
 import PaymentsTab from '../Tabs/PaymentsTab';
 import LoginPage from './LoginPage';
-import CarDetailsPage from '../DetailPages/CarDetailsPage'; // Import the CarDetailsPage
+import CarDetailsPage from '../DetailPages/CarDetailsPage'; 
 import UserDetailsPage from '../DetailPages/UserDetailsPage';
 import PaymentDetailsPage from '../DetailPages/PaymentDetailsPage';
 import BookingDetailsPage from '../DetailPages/BookingDetailsPage';
@@ -28,7 +27,6 @@ const MainPage = () => {
 	const isLoggedIn = useSelector((state) => state.isLoggedIn);
 	
 	const handleLogout = () => {
-	// Dispatch the logoutUser action to reset authentication state
 	dispatch(logoutUser());
 	};
 	
@@ -110,7 +108,7 @@ const MainPage = () => {
 											<PaymentDetailsPage/>
 										}
 									/>
-									{/* Add a default route for /main that redirects to /home/cars */}
+									{/* default route for /main that redirects to /home/cars */}
 									<Route path="/main" element={<Navigate to="/home/cars" />} />
 								</Routes>
 							</div>
@@ -121,8 +119,6 @@ const MainPage = () => {
 						<LoginPage/>
 					</div>
 				)}
-
-				{/* Tab content on the right */}
 			</div>
 		</Router>
 	);

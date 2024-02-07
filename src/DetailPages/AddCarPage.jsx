@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import 'bulma/css/bulma.min.css';
-import './CarDetailsPage.css'; // Import the CSS file
+import './CarDetailsPage.css'; 
 import MapPicker from '../components/MapPicker';
 import 'leaflet/dist/leaflet.css';
 import { requestCreateCar, updateCarImage } from '../redux/thunks';
@@ -11,11 +11,6 @@ const AddCarPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const jwtToken = useSelector((state) => state.jwttoken);
-    // const { carId } = useParams();
-    // const carAll = cars.find((car) => car.info.id === parseInt(carId));
-    //const imageString = carAll.img;
-    // const car = carAll.info;
-    // const features = car.features.split(',');
     const [newFeature, setNewFeature] = useState('');
     const [uploadedImage, setUploadedImage] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
@@ -70,8 +65,6 @@ const AddCarPage = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-
-        // Update the state using setEditedCar
         setEditedCar((prevCar) => ({
             ...prevCar,
             [name]: value,
@@ -80,7 +73,6 @@ const AddCarPage = () => {
 
 
     const handleSave = async() =>  {
-        // todo
         const body = assembleJSON();
         const response = await dispatch(requestCreateCar(jwtToken, body));
         console.log(response)
@@ -103,7 +95,6 @@ const AddCarPage = () => {
         setUploadedImage(file);
     };
 
-    // todo
     const addFeature = () => {
         if (newFeature.trim() !== '') {
             const updatedFeatures = [...editedCar.features, newFeature];
@@ -115,7 +106,6 @@ const AddCarPage = () => {
         }
     };
 
-    // todo
     const deleteFeature = (index) => {
         const updatedFeatures = [...editedCar.features];
         updatedFeatures.splice(index, 1);

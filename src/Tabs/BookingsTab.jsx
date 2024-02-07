@@ -1,4 +1,3 @@
-// BookingsTab.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ListPage from "../components/ListPage";
@@ -15,30 +14,23 @@ const BookingsTab = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
-  const reservationsPerPage = 20;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         console.log("Bookings UseEffect is running!");
         await dispatch(fetchBookingsData(jwtToken, currentPage));
-        setLoading(false); // Update loading state after data is fetched
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching bookings data:", error);
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [dispatch, jwtToken, currentPage]);
-  const filteredReservations = reservations;
 
-  const totalPages = Math.ceil(filteredReservations.length / reservationsPerPage);
-
-  const currentReservations = filteredReservations.slice(
-    (currentPage) * reservationsPerPage,
-    (currentPage + 1) * reservationsPerPage
-  );
+  const currentReservations = reservations;
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -48,7 +40,6 @@ const BookingsTab = () => {
     const handleDelete = async (id) => {
       try {
         await dispatch(requestCancelBooking(jwtToken, id));
-        // After deleting, you may want to refetch the data
         await dispatch(fetchBookingsData(jwtToken, currentPage));
       } catch (error) {
         console.error("Error deleting booking:", error);
@@ -69,8 +60,8 @@ const BookingsTab = () => {
     <ListPage
       data={currentReservations}
       listItem={listItem}
-      currentPage={currentPage + 1}
-      totalPages={totalPages}
+      currentPage={currentPage}
+      itemCount={currentReservations.length}
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
       handlePageChange={handlePageChange}

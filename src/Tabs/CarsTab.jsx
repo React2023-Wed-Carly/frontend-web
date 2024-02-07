@@ -14,36 +14,24 @@ const CarsTab = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
-  const carsPerPage = 20;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         console.log("Cars UseEffect is running!");
         await dispatch(fetchCarsData(jwtToken, currentPage));
-        setLoading(false); // Update loading state after data is fetched
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching cars data:", error);
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [dispatch, jwtToken, currentPage]);
 
-  // Filtering cars based on search query
-  const filteredCars = cars;
+  const currentCars = cars;
 
-  // Calculating the total number of pages
-  const totalPages = Math.ceil(filteredCars.length / carsPerPage);
-
-  // Slicing the cars to display for the current page
-  const currentCars = filteredCars.slice(
-    (currentPage) * carsPerPage,
-    (currentPage + 1) * carsPerPage
-  );
-
-  // Handle page change
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -71,84 +59,14 @@ const CarsTab = () => {
         <ListPage
           data={currentCars}
           listItem={listItem}
-          currentPage={currentPage + 1}
-          totalPages={totalPages}
+          currentPage={currentPage}
+          itemCount={currentCars.length}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           handlePageChange={handlePageChange}
           add={true}
         />
     )
-  );
-  return (
-    <div>
-      {/* Search Bar */}
-      <div className="field has-addons">
-        <div className="control is-expanded">
-          <input
-            className="input"
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Enter make or model"
-          />
-        </div>
-        <div className="control">
-          <button
-            className="button is-info"
-            onClick={() => handlePageChange(1)}
-          >
-            Search
-          </button>
-        </div>
-      </div>
-
-
-      {/* Paged List of Cars */}
-      <div>
-        {currentCars.map((car) => (
-          <div key={car.id} className="list-element">
-            <Link to={`/home/cars/${car.id}`}>
-              <p>
-                {car.id} {car.make} {car.model}
-              </p>
-            </Link>
-          </div>
-        ))}
-      </div>
-
-      {/* Pagination */}
-      <nav className="pagination" role="navigation" aria-label="pagination">
-        <button
-          className="pagination-previous button"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <button
-          className="pagination-next button"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-        <ul className="pagination-list">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <li key={index}>
-              <button
-                className={`pagination-link button ${currentPage === index + 1 ? "is-current" : ""
-                  }`}
-                aria-label={`Goto page ${index + 1}`}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </div>
   );
 };
 

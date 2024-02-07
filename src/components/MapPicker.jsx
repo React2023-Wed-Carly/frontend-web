@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import { icon } from "leaflet";
-//import 'leaflet/dist/leaflet.css';
 
 const MapPicker = ({ onLocationChange }) => {
   const [position, setPosition] = useState(null);
@@ -24,7 +23,6 @@ const MapPicker = ({ onLocationChange }) => {
 
     return position ? (
       <Marker position={position} icon={ICON}>
-        {/* You can customize the marker appearance if needed */}
       </Marker>
     ) : null;
   };

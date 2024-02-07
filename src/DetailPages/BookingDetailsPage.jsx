@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import "bulma/css/bulma.min.css";
 import "./UserDetailsPage.css";
 import Detail from "../components/Detail";
-import { DateTime, bigintToFloat } from "../utils";
+import { DateTime } from "../utils";
 
 const BookingDetailsPage = () => {
   const bookings = useSelector((state) => state.bookingsData);
@@ -46,29 +46,6 @@ const BookingDetailsPage = () => {
           detailValue={`Latitude ${booking.latitude}, Longitude: ${booking.longitude}`}
         ></Detail>
       </div>
-      {/*
-      <div className="field is-grouped">
-        {isEditing ? (
-          <>
-            <div className="control">
-              <button className="button is-success" onClick={handleSave}>
-                Save
-              </button>
-            </div>
-            <div className="control">
-              <button className="button is-danger" onClick={handleDelete}>
-                Delete
-              </button>
-            </div>
-          </>
-        ) : (
-          <div className="control">
-            <button className="button is-info" onClick={handleEdit}>
-              Edit
-            </button>
-          </div>
-        )}
-      </div>*/}
     </div>
   );
 };

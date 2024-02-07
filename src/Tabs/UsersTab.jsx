@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./UsersTab.css";
 import ListPage from "../components/ListPage";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData  } from '../redux/thunks';
+import { fetchUserData, fetchUserDataById  } from '../redux/thunks';
 import { Nickname } from "../utils";
 
 const UsersTab = () => {
@@ -14,34 +14,39 @@ const UsersTab = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
-  const usersPerPage = 20;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         console.log("Users UseEffect is running!");
         await dispatch(fetchUserData(jwtToken, currentPage));
-        setLoading(false); // Update loading state after data is fetched
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching users data:", error);
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       }
     };
     fetchData();
   }, [dispatch, jwtToken, currentPage]);
 
-  const filteredUsers = users;
-
-  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
-
-  const currentUsers = filteredUsers.slice(
-    (currentPage) * usersPerPage,
-    (currentPage + 1) * usersPerPage
-  );
+  const currentUsers = users;
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
+  
+  const handleSearch = () => {
+    try {
+      if( searchQuery !== "") {
+      dispatch(fetchUserDataById(jwtToken, searchQuery));
+      } else {
+        dispatch(fetchUserData(jwtToken, currentPage));
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
 
   const listItem = (item) => {
     return (
@@ -58,11 +63,12 @@ const UsersTab = () => {
     <ListPage
       data={currentUsers}
       listItem={listItem}
-      currentPage={currentPage + 1}
-      totalPages={totalPages}
+      currentPage={currentPage}
+      itemCount={currentUsers.length}
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
       handlePageChange={handlePageChange}
+      handleSearch={handleSearch}
       searchable={true}
     /> 
   );

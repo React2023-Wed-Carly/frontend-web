@@ -1,4 +1,3 @@
-// LoginPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -13,18 +12,16 @@ const LoginPage = () => {
 
 	const handleLogin = async () => {
 		try {
-		  // Dispatch the loginUser action to get the token
-		  const response = await dispatch(loginUser(username, password));
-			
-		  if (response.status === 200)
-		  {
-			console.log(`${response}`)
-		  	navigate('/main');
-		  }
+			const response = await dispatch(loginUser(username, password));
+
+			if (response.status === 200) {
+				console.log(`${response}`)
+				navigate('/main');
+			}
 		} catch (error) {
-		  console.error('Login failed:', error);
+			console.error('Login failed:', error);
 		}
-	  };
+	};
 
 	return (
 		<div className="container has-text-centered">

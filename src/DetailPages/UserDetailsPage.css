@@ -1,8 +1,8 @@
 .rows {
-    border: 2px solid #ccc; /* Add a border with a color of your choice */
+    border: 2px solid #ccc; 
 	border-radius: 5px;
-    width: 50%; /* Adjust the width as needed */
-    padding: 30px; /* Add padding for better appearance */
+    width: 50%; 
+    padding: 30px; 
 
     display: flex;
     flex-direction: column;
@@ -13,5 +13,5 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Set the height to 100% of the viewport height if you want vertical centering */
+    height: 100vh; 
 }

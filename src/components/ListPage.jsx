@@ -10,9 +10,11 @@ const ListPage = ({
   listItem,
   currentPage,
   totalPages,
+  itemCount,
   searchQuery,
   setSearchQuery,
   handlePageChange,
+  handleSearch,
   add = false,
   searchable = false
 }) => {
@@ -23,6 +25,7 @@ const ListPage = ({
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         handlePageChange={handlePageChange}
+        handleSearch={handleSearch}
       />}
       {add &&
         <div className="field">
@@ -39,7 +42,7 @@ const ListPage = ({
       </div>
       <Pagination
         currentPage={currentPage}
-        totalPages={totalPages}
+        itemCount={itemCount}
         handlePageChange={handlePageChange}
       />
     </div>

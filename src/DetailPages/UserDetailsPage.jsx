@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "bulma/css/bulma.min.css";
-import "./UserDetailsPage.css"; // Import the CSS file
+import "./UserDetailsPage.css"; 
 import Detail from "../components/Detail";
 import {bigintToFloat} from "../utils";
 

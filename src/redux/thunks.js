@@ -4,7 +4,7 @@ import {
 } from "./actions";
 import axios from 'axios';
 
-const URL = 'https://wedcarly.azurewebsites.net';
+const URL = 'http://localhost:8080';
 
 export const loginUser = (username, password) => async (dispatch) => {
 	try {
@@ -14,11 +14,9 @@ export const loginUser = (username, password) => async (dispatch) => {
 				password,
 			});
 		const token = response.data.jwttoken;
-		// Dispatch login success action with the token
 		dispatch(loginSuccess(token));
 
 		console.log("Logging in!");
-		// Return the response for further processing if needed
 		return response;
 	} catch (error) {
 
@@ -28,7 +26,6 @@ export const loginUser = (username, password) => async (dispatch) => {
 	}
 };
 
-// Async action to fetch user data
 export const fetchUserData = (jwtToken, page, userId, username) => async (dispatch) => {
 	try {
 		const params = {};
@@ -51,14 +48,28 @@ export const fetchUserData = (jwtToken, page, userId, username) => async (dispat
 			params: params,
 		});
 
-		// Dispatch setUserData action with the fetched data
 		dispatch(setUserData(response.data));
 
-		// Return the response for further processing if needed
 		return response;
 	} catch (error) {
 		console.error('Failed to fetch user data:', error);
-		throw error; // Re-throw the error to indicate data fetching failure
+		throw error; 
+	}
+};
+
+export const fetchUserDataById = (jwtToken, userId) => async (dispatch) => {
+	try {
+		const response = await axios.get(`${URL}/manage/users/${userId}`, {
+			headers: {
+				Authorization: `Bearer ${jwtToken}`
+			}});
+
+		dispatch(setUserData([response.data]));
+
+		return response;
+	} catch (error) {
+		console.error('Failed to fetch user data:', error);
+		throw error; 
 	}
 };
 

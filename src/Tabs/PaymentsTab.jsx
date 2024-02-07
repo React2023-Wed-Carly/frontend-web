@@ -1,4 +1,3 @@
-// PaymentsTab.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ListPage from "../components/ListPage";
@@ -13,31 +12,23 @@ const PaymentsTab = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
-  const paymentsPerPage = 20;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         console.log("Payments UseEffect is running!");
         await dispatch(fetchPaymentsData(jwtToken, currentPage));
-        setLoading(false); // Update loading state after data is fetched
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching bookings data:", error);
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [dispatch, jwtToken, currentPage]);
 
-  const filteredPayments = payments;
-
-  const totalPages = Math.ceil(filteredPayments.length / paymentsPerPage);
-
-  const currentPayments = filteredPayments.slice(
-    (currentPage) * paymentsPerPage,
-    (currentPage + 1) * paymentsPerPage
-  );
+  const currentPayments = payments;
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -58,8 +49,8 @@ const PaymentsTab = () => {
     <ListPage
       data={currentPayments}
       listItem={listItem}
-      currentPage={currentPage + 1}
-      totalPages={totalPages}
+      currentPage={currentPage}
+      itemCount={currentPayments.length}
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
       handlePageChange={handlePageChange}

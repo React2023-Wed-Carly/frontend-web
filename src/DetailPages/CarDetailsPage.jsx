@@ -86,7 +86,6 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 	};
 
 	const handleSave = async() => {
-		// todo
 		const body = assembleJSON();
         const response = await dispatch(requestUpdateCar(jwtToken, carId, body));
 		if (uploadedImage) {
@@ -119,7 +118,6 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 		setUploadedImage(file);
 	};
 
-	// todo
 	const addFeature = () => {
 		if (newFeature.trim() !== '') {
 			const updatedFeatures = [...editedCar.features, newFeature];
@@ -131,7 +129,6 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 		}
 	};
 
-	// todo
 	const deleteFeature = (index) => {
 		const updatedFeatures = [...editedCar.features];
 		updatedFeatures.splice(index, 1);
@@ -149,7 +146,6 @@ const CarDetailsPage = ({ onUpdateCar, onDeleteCar }) => {
 		<div className="rows">
 			<h2 className="title is-4">Details of car {car.id}</h2>
 			<div className="field">
-				{/*<label className="label">Photo:</label>*/}
 				<div className="control">
 					{isEditing ? (
 						<div class="file has-name">

@@ -1,4 +1,3 @@
-// actions.js
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const SET_USER_DATA = 'SET_USER_DATA';
@@ -8,7 +7,6 @@ export const SET_PAYMENTS_DATA = 'SET_PAYMENTS_DATA';
 export const DELETE_CAR = 'DELETE_CAR';
 export const CANCEL_BOOKING = 'CANCEL_BOOKING';
 
-// Action to handle successful login
 export const loginSuccess = (jwttoken) => ({
   type: 'LOGIN_SUCCESS',
   payload: jwttoken,

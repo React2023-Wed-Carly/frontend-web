@@ -1,5 +1,3 @@
-/* CarDetailsPage.css */
-
 .container {
 	max-width: 800px;
 	margin: auto;
@@ -48,8 +46,8 @@
 
 .MapPicker-container {
 	width: 100%;
-	height: 300px; /* Adjust the height according to your needs */
-	margin-bottom: 30px; /* Add some margin to separate it from other elements */
-	border: 2px solid #ccc; /* Add a border with a color of your choice */
+	height: 300px; 
+	margin-bottom: 30px; 
+	border: 2px solid #ccc; 
 	border-radius: 5px;
   }
